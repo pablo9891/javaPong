@@ -6,7 +6,7 @@ public class Text {
     private String text;
     private Color color;
     private int x, y;
-    private double width, height;
+    private int width, height;
     private int size;
 
     public Text(String text, int x, int y, int size, Color color) {
@@ -59,19 +59,19 @@ public class Text {
         this.y = y;
     }
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 }

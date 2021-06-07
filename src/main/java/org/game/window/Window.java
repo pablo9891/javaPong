@@ -54,7 +54,7 @@ public class Window extends JFrame implements Runnable {
         soundManager = new SoundManager();
         frames = 0;
 
-        avgFPSText = new Text(String.valueOf(0.0), 20, 50, 18, Color.YELLOW);
+        avgFPSText = new Text(String.valueOf(0.0), 20, 50, 18, Color.ORANGE);
     }
 
     public void update(double delta) {
