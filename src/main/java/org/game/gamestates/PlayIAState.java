@@ -1,16 +1,14 @@
 package org.game.gamestates;
 
-import org.game.gameobject.GameObject;
-import org.game.input.KeyListenerCallback;
-import org.game.input.KeyboardCallback;
-import org.game.math.Vector2D;
+import org.game.fonts.Text;
 import org.game.utils.Constants;
 import org.game.window.Window;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 public class PlayIAState extends GameState {
+
+    private Text IAText = new Text("IA State", Constants.WINDOW_WIDTH / 2, Constants.WINDOW_HEIGHT / 2, 48, Color.BLACK);
 
     public PlayIAState(Window w) {
         super(w);
@@ -28,7 +26,10 @@ public class PlayIAState extends GameState {
 
     @Override
     public void render(Graphics2D buffer) {
+        buffer.setColor(Color.GREEN);
+        buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
 
+        window.getText().draw(IAText, buffer);
     }
 
     @Override

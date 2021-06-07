@@ -1,8 +1,9 @@
 package org.game.window;
 
 import org.game.fonts.Text;
+import org.game.fonts.TextManager;
 import org.game.gamestates.GameState;
-import org.game.gamestates.PlayOpponentState;
+import org.game.gamestates.MenuState;
 import org.game.sound.SoundManager;
 import org.game.time.Time;
 import org.game.utils.Constants;
@@ -18,10 +19,11 @@ public class Window extends JFrame implements Runnable {
     private GameState gameState;
     private int frames;
 
-    private Text text;
+    private TextManager textManager;
     private SoundManager soundManager;
     private Graphics graphics;
 
+    private Text avgFPSText;
     private double avgFPS = 0;
 
     Time time = new Time();
@@ -29,9 +31,15 @@ public class Window extends JFrame implements Runnable {
     public Window() {
         loadWindowConfiguration();
         windowThread = new Thread(this);
+        gameState = new MenuState(this);
+        gameState.loadResources();
     }
 
     private void loadWindowConfiguration() {
+        setWindowProperties();
+    }
+
+    private void setWindowProperties() {
         this.windowName = Constants.WINDOW_NAME;
         this.width = Constants.WINDOW_WIDTH;
         this.height = Constants.WINDOW_HEIGHT;
@@ -41,13 +49,12 @@ public class Window extends JFrame implements Runnable {
         this.setResizable(Constants.IS_RESIZABLE_WINDOW);
         this.setFocusable(Constants.IS_FOCUSABLE_WINDOW);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        text = new Text();
+        textManager = new TextManager();
         graphics = (Graphics2D)this.getGraphics();
         soundManager = new SoundManager();
         frames = 0;
 
-        gameState = new PlayOpponentState(this);
-        gameState.loadResources();
+        avgFPSText = new Text(String.valueOf(0.0), 20, 50, 18, Color.YELLOW);
     }
 
     public void update(double delta) {
@@ -59,11 +66,15 @@ public class Window extends JFrame implements Runnable {
         Graphics g = img.getGraphics();
         Graphics2D doubleBuffer = (Graphics2D) g;
 
+        doubleBuffer.setColor(getBackground());
+        //doubleBuffer.fillRect(0, 0, this.getWindowWidth(), this.getWindowHeight());
+
         gameState.render(doubleBuffer);
 
-        if(Constants.IS_DEBUG_SET)
-            text.draw(String.valueOf(Math.round(avgFPS * 100.0) / 100.0), doubleBuffer, 20, 10, 50,
-                    Color.YELLOW);
+        if(Constants.IS_DEBUG_SET) {
+            avgFPSText.setText(String.valueOf(Math.round(avgFPS * 100.0) / 100.0));
+            textManager.draw(avgFPSText, doubleBuffer);
+        }
 
         graphics.drawImage(img, 0, 0, this);
         frames++;
@@ -137,11 +148,17 @@ public class Window extends JFrame implements Runnable {
         return windowName;
     }
 
-    public Text getText() {
-        return this.text;
+    public TextManager getText() {
+        return this.textManager;
     }
 
     public SoundManager getSoundManager() {
         return this.soundManager;
+    }
+
+    public void setNewState(GameState newState) {
+        this.gameState = newState;
+        this.gameState.loadResources();
+        this.gameState.loadGame();
     }
 }

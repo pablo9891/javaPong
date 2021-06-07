@@ -4,7 +4,8 @@ import org.game.window.Window;
 
 /*
     TODO: Finalizar colisiones con los edges
-        Agregar sonido (DONE), IA, estados y FPS (DONE)
+        Agregar sonido (DONE), IA, estados (DONE) y FPS (DONE)
+        finalizar con el text y agregar mouse listeners
 */
 public class App {
     public static void main( String[] args ) {

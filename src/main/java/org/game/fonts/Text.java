@@ -1,29 +1,77 @@
 package org.game.fonts;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Text {
+    private String text;
+    private Color color;
+    private int x, y;
+    private double width, height;
+    private int size;
 
-    private Map<Integer, Font> fonts;
-
-    public Text() {
-        loadFonts();
+    public Text(String text, int x, int y, int size, Color color) {
+        this.text = text;
+        this.color = color;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.width = size * this.text.length();
+        this.height = size;
     }
 
-    private void loadFonts() {
-        int[] sizes = {12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48};
-        fonts = new HashMap<>();
-
-        for(int s : sizes) {
-            fonts.put(s, new Font("Monaco", Font.BOLD, s));
-        }
+    public int getSize() {
+        return size;
     }
 
-    public void draw(String text, Graphics2D g2, int size, int x, int y, Color color) {
-        g2.setColor(color);
-        g2.setFont(fonts.get(size));
-        g2.drawString(text, (float)x, (float)y);
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 }

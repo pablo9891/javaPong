@@ -9,8 +9,6 @@ import org.game.input.KeyListenerCallback;
 import org.game.input.KeyboardCallback;
 import org.game.input.PlayerController;
 import org.game.math.Vector2D;
-import org.game.sound.SoundManager;
-import org.game.time.Time;
 import org.game.utils.Constants;
 import org.game.window.Window;
 
@@ -25,6 +23,7 @@ public class PlayOpponentState extends GameState {
     private PlayerController leftBarController, rightBarController;
     private ColissionHelper colissionHelper;
     private KeyListenerCallback keyListener;
+    private Text leftMarkerText, rightMarkerText;
 
     KeyboardCallback<GameObject, KeyListenerCallback, Double> leftBarListenerCalback = (gameObject, listener, delta) ->
     {
@@ -73,6 +72,8 @@ public class PlayOpponentState extends GameState {
         Constants.BOTTOM_BAR = Constants.WINDOW_HEIGHT;
         leftMarker = 0;
         rightMarker = 0;
+        leftMarkerText = new Text(String.valueOf(leftMarker), 200, 100, 48, Color.WHITE);
+        rightMarkerText = new Text(String.valueOf(rightMarker), Constants.WINDOW_WIDTH - 200, 100, 48, Color.WHITE);
     }
 
     @Override
@@ -104,6 +105,9 @@ public class PlayOpponentState extends GameState {
             ball.setDirection(new Vector2D(1, -1));
         }
 
+        leftMarkerText.setText(String.valueOf(leftMarker));
+        rightMarkerText.setText(String.valueOf(rightMarker));
+
         leftBar.update(delta);
         rightBar.update(delta);
         ball.update(delta);
@@ -114,13 +118,12 @@ public class PlayOpponentState extends GameState {
         buffer.setColor(Color.BLACK);
         buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
 
+        window.getText().draw(leftMarkerText, buffer);
+        window.getText().draw(rightMarkerText, buffer);
+
         leftBar.draw(buffer);
         rightBar.draw(buffer);
         ball.draw(buffer);
-
-        window.getText().draw(String.valueOf(leftMarker), buffer, 48, 200, 100, Color.WHITE);
-        window.getText().draw(String.valueOf(rightMarker), buffer, 48, Constants.WINDOW_WIDTH - 200, 100,
-                Color.WHITE);
     }
 
     @Override
