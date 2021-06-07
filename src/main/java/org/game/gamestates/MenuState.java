@@ -1,6 +1,15 @@
 package org.game.gamestates;
 
-public class MenuState implements GameState {
+import org.game.window.Window;
+
+import java.awt.*;
+
+public class MenuState extends GameState {
+
+    public MenuState(Window w) {
+        super(w);
+    }
+
     @Override
     public void loadResources() {
 
@@ -12,17 +21,12 @@ public class MenuState implements GameState {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D buffer) {
 
     }
 
     @Override
     public void loadGame() {
-
-    }
-
-    @Override
-    public void loop() {
 
     }
 }

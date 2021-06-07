@@ -1,14 +1,22 @@
 package org.game.gamestates;
 
-public interface GameState {
+import org.game.window.Window;
 
-    public void loadResources();
+import java.awt.*;
 
-    public void update(double delta);
+public abstract class GameState {
 
-    public void render();
+   protected Window window;
 
-    public void loadGame();
+    public GameState(Window w) {
+        this.window = w;
+    }
 
-    public void loop();
+    public abstract void loadResources();
+
+    public abstract void update(double delta);
+
+    public abstract void render(Graphics2D buffer);
+
+    public abstract void loadGame();
 }

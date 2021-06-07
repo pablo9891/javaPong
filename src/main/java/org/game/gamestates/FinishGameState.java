@@ -1,6 +1,14 @@
 package org.game.gamestates;
 
-public class FinishGameState implements GameState {
+import org.game.window.Window;
+
+import java.awt.*;
+
+public class FinishGameState extends GameState {
+
+    public FinishGameState(Window w) {
+        super(w);
+    }
 
     @Override
     public void loadResources() {
@@ -13,17 +21,12 @@ public class FinishGameState implements GameState {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D buffer) {
 
     }
 
     @Override
     public void loadGame() {
-
-    }
-
-    @Override
-    public void loop() {
 
     }
 }

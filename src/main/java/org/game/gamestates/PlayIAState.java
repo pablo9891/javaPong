@@ -1,6 +1,21 @@
 package org.game.gamestates;
 
-public class PlayIAState implements GameState {
+import org.game.gameobject.GameObject;
+import org.game.input.KeyListenerCallback;
+import org.game.input.KeyboardCallback;
+import org.game.math.Vector2D;
+import org.game.utils.Constants;
+import org.game.window.Window;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+
+public class PlayIAState extends GameState {
+
+    public PlayIAState(Window w) {
+        super(w);
+    }
+
     @Override
     public void loadResources() {
 
@@ -12,17 +27,12 @@ public class PlayIAState implements GameState {
     }
 
     @Override
-    public void render() {
+    public void render(Graphics2D buffer) {
 
     }
 
     @Override
     public void loadGame() {
-
-    }
-
-    @Override
-    public void loop() {
 
     }
 }
