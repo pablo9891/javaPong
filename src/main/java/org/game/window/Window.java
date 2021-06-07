@@ -2,6 +2,7 @@ package org.game.window;
 
 import org.game.fonts.Text;
 import org.game.fonts.TextManager;
+import org.game.gamestates.FinishGameState;
 import org.game.gamestates.GameState;
 import org.game.gamestates.MenuState;
 import org.game.sound.SoundManager;
@@ -23,15 +24,20 @@ public class Window extends JFrame implements Runnable {
     private SoundManager soundManager;
     private Graphics graphics;
 
-    private Text avgFPSText;
+    private Text avgFPSText, frameStartText, frameEndText, elapsedTimeText, deltaText, delayText;
     private double avgFPS = 0;
+
+    private double frameElapasedTime = 0;
+    private double frameStartTime = 0;
+    private double delta = 0;
+    private double frameEndTime = 0;
 
     Time time = new Time();
 
     public Window() {
         loadWindowConfiguration();
         windowThread = new Thread(this);
-        gameState = new MenuState(this);
+        gameState = new FinishGameState(this, "IA");
         gameState.loadResources();
     }
 
@@ -54,7 +60,13 @@ public class Window extends JFrame implements Runnable {
         soundManager = new SoundManager();
         frames = 0;
 
+        double separationBetweenText = 10;
         avgFPSText = new Text(String.valueOf(0.0), 20, 50, 18, Color.ORANGE);
+        frameStartText = new Text(String.valueOf(0.0), 20, (int)(avgFPSText.getY() + avgFPSText.getHeight() + separationBetweenText), 18, Color.ORANGE);
+        frameEndText = new Text(String.valueOf(0.0), 20, (int)(frameStartText.getY() + frameStartText.getHeight() + separationBetweenText), 18, Color.ORANGE);
+        elapsedTimeText = new Text(String.valueOf(0.0), 20, (int)(frameEndText.getY() + frameEndText.getHeight() + separationBetweenText), 18, Color.ORANGE);
+        deltaText = new Text(String.valueOf(0.0), 20, (int)(elapsedTimeText.getY() + elapsedTimeText.getHeight() + separationBetweenText), 18, Color.ORANGE);
+        delayText = new Text("Delay time: " + Math.round(Constants.FRAME_DELAY * 100.0) / 100.0, 20, (int)(deltaText.getY() + deltaText.getHeight() + separationBetweenText), 18, Color.ORANGE);
     }
 
     public void update(double delta) {
@@ -72,8 +84,18 @@ public class Window extends JFrame implements Runnable {
         gameState.render(doubleBuffer);
 
         if(Constants.IS_DEBUG_SET) {
-            avgFPSText.setText(String.valueOf(Math.round(avgFPS * 100.0) / 100.0));
+            avgFPSText.setText("Avg FPS: " + Math.round(avgFPS * 100.0) / 100.0);
+            frameStartText.setText("Frame start: " + Math.round(frameStartTime * 100.0) / 100.0);
+            frameEndText.setText("Frame end: " + Math.round(frameEndTime * 100.0) / 100.0);
+            elapsedTimeText.setText("Elapsed time: " + Math.round(frameElapasedTime * 100.0) / 100.0);
+            deltaText.setText("Delta: " + Math.round(delta * 10000.0) / 10000.0);
+
             textManager.draw(avgFPSText, doubleBuffer);
+            textManager.draw(frameStartText, doubleBuffer);
+            textManager.draw(frameEndText, doubleBuffer);
+            textManager.draw(elapsedTimeText, doubleBuffer);
+            textManager.draw(deltaText, doubleBuffer);
+            textManager.draw(delayText, doubleBuffer);
         }
 
         graphics.drawImage(img, 0, 0, this);
@@ -95,11 +117,6 @@ public class Window extends JFrame implements Runnable {
         this.isExecuting = true;
 
         gameState.loadGame();
-
-        double frameElapasedTime = 0;
-        double frameStartTime = 0;
-        double delta = 0;
-        double frameEndTime = 0;
 
         time.start();
         while(this.isExecuting) {
@@ -123,14 +140,6 @@ public class Window extends JFrame implements Runnable {
             this.avgFPS = frames / (time.getTime() / 1000d);
             if(frames > 2000000)
                 frames = 0;
-
-            if(Constants.IS_DEBUG_SET) {
-                System.out.println("frameStart: " + frameStartTime);
-                System.out.println("frameEnd: " + frameEndTime);
-                System.out.println("frameElapsed: " + frameElapasedTime);
-                System.out.println("frameDelat: " + Constants.FRAME_DELAY);
-                System.out.println("delta: " + delta);
-            }
         }
 
         stopWindow();

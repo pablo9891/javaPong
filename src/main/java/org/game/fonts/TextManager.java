@@ -28,4 +28,10 @@ public class TextManager {
         g2.setFont(fonts.get(text.getSize()));
         g2.drawString(text.getText(), (float)text.getX(), (float)text.getY());
     }
+
+    public void draw(String txt, int x, int y, int size, Color color, Graphics2D g2) {
+        g2.setColor(color);
+        g2.setFont(fonts.get(size));
+        g2.drawString(txt, (float)x, (float)y);
+    }
 }
