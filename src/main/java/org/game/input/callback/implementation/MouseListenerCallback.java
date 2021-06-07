@@ -1,4 +1,4 @@
-package org.game.input;
+package org.game.input.callback.implementation;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

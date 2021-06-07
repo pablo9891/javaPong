@@ -2,10 +2,10 @@ package org.game.gamestates;
 
 import org.game.fonts.Text;
 import org.game.gameobject.GameObject;
-import org.game.input.KeyListenerCallback;
-import org.game.input.KeyboardCallback;
-import org.game.input.MouseCallback;
-import org.game.input.MouseListenerCallback;
+import org.game.input.callback.implementation.KeyListenerCallback;
+import org.game.input.callback.KeyboardCallback;
+import org.game.input.callback.MouseCallback;
+import org.game.input.callback.implementation.MouseListenerCallback;
 import org.game.utils.Constants;
 import org.game.window.Window;
 

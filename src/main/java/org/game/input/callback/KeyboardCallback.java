@@ -1,4 +1,4 @@
-package org.game.input;
+package org.game.input.callback;
 
 @FunctionalInterface
 public interface KeyboardCallback<Bar, KeyListenerCallback, Double> {

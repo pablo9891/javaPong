@@ -1,6 +1,8 @@
-package org.game.input;
+package org.game.input.controller;
 
 import org.game.gameobject.GameObject;
+import org.game.input.callback.implementation.KeyListenerCallback;
+import org.game.input.callback.KeyboardCallback;
 
 public class PlayerController {
 

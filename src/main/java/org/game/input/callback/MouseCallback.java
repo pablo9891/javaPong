@@ -1,4 +1,4 @@
-package org.game.input;
+package org.game.input.callback;
 
 @FunctionalInterface
 public interface MouseCallback<Bar, MouseListenerCallback, Double> {
