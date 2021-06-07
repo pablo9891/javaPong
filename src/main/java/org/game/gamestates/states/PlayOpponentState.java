@@ -1,11 +1,12 @@
-package org.game.gamestates;
+package org.game.gamestates.states;
 
 import org.game.colission.ColissionHelper;
 import org.game.fonts.Text;
 import org.game.gameobject.Ball;
 import org.game.gameobject.Bar;
 import org.game.gameobject.GameObject;
-import org.game.input.callback.implementation.KeyListenerCallback;
+import org.game.gamestates.GameState;
+import org.game.input.callback.keyboardimp.KeyListenerCallback;
 import org.game.input.callback.KeyboardCallback;
 import org.game.input.controller.PlayerController;
 import org.game.math.Vector2D;
@@ -78,14 +79,11 @@ public class PlayOpponentState extends GameState {
 
     @Override
     public void update(double delta) {
-        if(rightMarker == Constants.MAX_POINTS) {
-            System.out.println("Gano el jugador de la derecha !!!");
-            // change game state to finish
-        }
-        if(leftMarker == Constants.MAX_POINTS) {
-            System.out.println("Gano el jugador de la izquierda !!!");
-            // change game state to finish
-        }
+        if(rightMarker == Constants.MAX_POINTS)
+            window.setNewState(new FinishGameState(window, "P2"));
+
+        if(leftMarker == Constants.MAX_POINTS)
+            window.setNewState(new FinishGameState(window, "P1"));
 
         leftBarController.update(delta, leftBarListenerCalback);
         rightBarController.update(delta, rightBarListenerCalback);

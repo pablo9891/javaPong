@@ -1,6 +1,7 @@
-package org.game.gamestates;
+package org.game.gamestates.states;
 
 import org.game.fonts.Text;
+import org.game.gamestates.GameState;
 import org.game.utils.Constants;
 import org.game.window.Window;
 

@@ -1,33 +1,35 @@
-package org.game.gamestates;
+package org.game.gamestates.states;
 
 import org.game.fonts.Text;
 import org.game.gameobject.GameObject;
+import org.game.gamestates.GameState;
 import org.game.input.callback.MouseCallback;
-import org.game.input.callback.implementation.MouseListenerCallback;
+import org.game.input.callback.mouseimp.MouseListenerCallback;
 import org.game.utils.Constants;
 import org.game.window.Window;
 
 import java.awt.*;
 
-public class MenuState extends GameState {
+public class FinishGameState extends GameState {
 
     private MouseListenerCallback mouseListener;
 
-    private Text pongText, playOponentText, playIAText, exitText;
+    private Text winnerText, retryText, exitText;
+
+    String winnerName;
 
     MouseCallback<GameObject, MouseListenerCallback, Double> menuMouseCallback = (gameObject, listener, delta) -> {
         if(listener.isMousePressed()) {
-            if(isMouseOverlapText(playOponentText))
-                window.setNewState(new PlayOpponentState(window));
-            if(isMouseOverlapText(playIAText))
-                window.setNewState(new PlayIAState(window));
+            if(isMouseOverlapText(retryText))
+                window.setNewState(new MenuState(window));
             if(isMouseOverlapText(exitText))
                 window.stopWindow();
         }
     };
 
-    public MenuState(Window w) {
+    public FinishGameState(Window w, String winnerName) {
         super(w);
+        this.winnerName = winnerName;
     }
 
     @Override
@@ -36,23 +38,17 @@ public class MenuState extends GameState {
         mouseListener = new MouseListenerCallback();
         window.addMouseListener(mouseListener);
         window.addMouseMotionListener(mouseListener);
-        pongText = new Text("Pong", (Constants.WINDOW_WIDTH / 2) - 100, (Constants.WINDOW_HEIGHT / 3), 100, Color.WHITE);
-        playOponentText = new Text("Play against opponent", (Constants.WINDOW_WIDTH / 2) - 290, pongText.getY() + pongText.getHeight() + wordSeparation, 48, Color.WHITE);
-        playIAText = new Text("Play against IA", (Constants.WINDOW_WIDTH / 2) - 200, playOponentText.getY() + playOponentText.getHeight() + wordSeparation, 48, Color.WHITE);
-        exitText = new Text("Exit", (Constants.WINDOW_WIDTH / 2) - 40, playIAText.getY() + playIAText.getHeight() + wordSeparation, 48, Color.WHITE);
+        winnerText = new Text(winnerName + " Won!", (Constants.WINDOW_WIDTH / 2) - 180, (Constants.WINDOW_HEIGHT / 3), 100, Color.WHITE);
+        retryText = new Text("Go back menu", (Constants.WINDOW_WIDTH / 2) - 170, winnerText.getY() + winnerText.getHeight() + wordSeparation, 48, Color.WHITE);
+        exitText = new Text("Exit", (Constants.WINDOW_WIDTH / 2) - 40, retryText.getY() + retryText.getHeight() + wordSeparation, 48, Color.WHITE);
     }
 
     @Override
     public void update(double delta) {
-        if(isMouseOverlapText(playOponentText))
-            playOponentText.setColor(Color.GREEN);
+        if(isMouseOverlapText(retryText))
+            retryText.setColor(Color.GREEN);
         else
-            playOponentText.setColor(Color.WHITE);
-
-        if(isMouseOverlapText(playIAText))
-            playIAText.setColor(Color.GREEN);
-        else
-            playIAText.setColor(Color.WHITE);
+            retryText.setColor(Color.WHITE);
 
         if(isMouseOverlapText(exitText))
             exitText.setColor(Color.GREEN);
@@ -67,9 +63,8 @@ public class MenuState extends GameState {
         buffer.setColor(Color.BLACK);
         buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
 
-        window.getText().draw(pongText, buffer);
-        window.getText().draw(playOponentText, buffer);
-        window.getText().draw(playIAText, buffer);
+        window.getText().draw(winnerText, buffer);
+        window.getText().draw(retryText, buffer);
         window.getText().draw(exitText, buffer);
     }
 
@@ -83,3 +78,4 @@ public class MenuState extends GameState {
                 mouseListener.getMouseY() >= txt.getY() - (txt.getHeight() / 2) && mouseListener.getMouseY() <= (txt.getY() + (txt.getHeight() / 2));
     }
 }
+

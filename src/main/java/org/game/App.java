@@ -6,8 +6,8 @@ import org.game.window.Window;
     TODO:
      - Finalizar colisiones con los edges o mejorar colisiones
      - Agregar IA
-     - Arreglar NPE cuando se apreta escape
-     - Arreglar menu principal (hover del mouse)
+     - Arreglar NPE cuando se apreta escape (DONE)
+     - Arreglar menu principal (hover del mouse) (DONE)
      - Agregar estado de Finalizacion (DONE)
      - Mejorar textos en el menu principal (DONE)
      - Arreglar issue de pantalla en blanco al principio

@@ -1,4 +1,4 @@
-package org.game.input.callback.implementation;
+package org.game.input.callback.keyboardimp;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

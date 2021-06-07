@@ -2,9 +2,9 @@ package org.game.window;
 
 import org.game.fonts.Text;
 import org.game.fonts.TextManager;
-import org.game.gamestates.FinishGameState;
+import org.game.gamestates.states.FinishGameState;
 import org.game.gamestates.GameState;
-import org.game.gamestates.MenuState;
+import org.game.gamestates.states.MenuState;
 import org.game.sound.SoundManager;
 import org.game.time.Time;
 import org.game.utils.Constants;
@@ -37,7 +37,7 @@ public class Window extends JFrame implements Runnable {
     public Window() {
         loadWindowConfiguration();
         windowThread = new Thread(this);
-        gameState = new FinishGameState(this, "IA");
+        gameState = new MenuState(this);
         gameState.loadResources();
     }
 
@@ -105,11 +105,13 @@ public class Window extends JFrame implements Runnable {
     public void startWindow() { windowThread.start(); }
 
     public void stopWindow() {
+        this.isExecuting = false;
+    }
+
+    private void clean() {
         graphics.dispose();
         this.dispose();
-        this.isExecuting = false;
         windowThread.interrupt();
-        System.exit(0);
     }
 
     @Override
@@ -142,7 +144,7 @@ public class Window extends JFrame implements Runnable {
                 frames = 0;
         }
 
-        stopWindow();
+        clean();
     }
 
     public int getWindowWidth() {
