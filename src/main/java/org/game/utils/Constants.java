@@ -100,4 +100,22 @@ public class Constants {
             getIntegerProperty("fps");
 
     public static double FRAME_DELAY = 1000d / Constants.FPS;
+
+    public static double MAX_VEL = Configuration.
+            getInstance().
+            getIntegerProperty("max_vel");
+
+    public static double MID_VEL = Configuration.
+            getInstance().
+            getIntegerProperty("mid_vel");
+
+    public static double MIN_VEL = Configuration.
+            getInstance().
+            getIntegerProperty("min_vel");
+    /**
+     * Ball max angle in radians
+     */
+    public static double MAX_ANGLE = Configuration.
+            getInstance().
+            getIntegerProperty("max_angle_in_radians");
 }
