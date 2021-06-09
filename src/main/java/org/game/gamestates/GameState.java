@@ -2,7 +2,7 @@ package org.game.gamestates;
 
 import org.game.window.Window;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 public abstract class GameState {
 

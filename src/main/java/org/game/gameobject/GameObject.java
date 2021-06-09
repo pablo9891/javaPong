@@ -2,7 +2,8 @@ package org.game.gameobject;
 
 import org.game.math.Vector2D;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
 public abstract class GameObject {

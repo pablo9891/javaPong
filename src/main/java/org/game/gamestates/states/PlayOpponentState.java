@@ -13,7 +13,8 @@ import org.game.math.Vector2D;
 import org.game.utils.Constants;
 import org.game.window.Window;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class PlayOpponentState extends GameState {
@@ -127,13 +128,13 @@ public class PlayOpponentState extends GameState {
     @Override
     public void loadGame() {
         this.leftBar = new Bar(new Vector2D(Constants.LEFT_BAR_INITIAL_X, Constants.LEFT_BAR_INITIAL_Y),
-                Constants.BAR_WIDHT,
+                Constants.BAR_WIDTH,
                 Constants.BAR_HEIGHT,
                 new Vector2D(Constants.BAR_INITIAL_X_VEL, Constants.BAR_INITIAL_Y_VEL),
                 new Vector2D(1, 0),
                 Color.GREEN);
         this.rightBar = new Bar(new Vector2D(Constants.RIGHT_BAR_INITAL_X, Constants.RIGHT_BAR_INITIAL_Y),
-                Constants.BAR_WIDHT,
+                Constants.BAR_WIDTH,
                 Constants.BAR_HEIGHT,
                 new Vector2D(Constants.BAR_INITIAL_X_VEL, Constants.BAR_INITIAL_Y_VEL),
                 new Vector2D(-1, 0),

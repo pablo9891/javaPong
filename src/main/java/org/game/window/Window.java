@@ -4,13 +4,16 @@ import org.game.fonts.Text;
 import org.game.fonts.TextManager;
 import org.game.gamestates.GameState;
 import org.game.gamestates.states.MenuState;
-import org.game.gamestates.states.PlayIAState;
 import org.game.sound.SoundManager;
 import org.game.time.Time;
 import org.game.utils.Constants;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Color;
 
 public class Window extends JFrame implements Runnable {
     private Thread windowThread;

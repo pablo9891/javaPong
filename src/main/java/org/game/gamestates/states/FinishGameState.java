@@ -8,7 +8,8 @@ import org.game.input.callback.mouseimp.MouseListenerCallback;
 import org.game.utils.Constants;
 import org.game.window.Window;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Color;
 
 public class FinishGameState extends GameState {
 

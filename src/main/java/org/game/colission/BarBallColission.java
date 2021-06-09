@@ -5,7 +5,7 @@ import org.game.gameobject.Bar;
 import org.game.math.Vector2D;
 import org.game.utils.Constants;
 
-import java.awt.*;
+import java.awt.Color;
 
 public abstract class BarBallColission {
 
@@ -111,7 +111,7 @@ public abstract class BarBallColission {
         double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
         double barTop = bar.getPosition().getY();
 
-        double barMid = bar.getPosition().getX() + (Constants.BAR_WIDHT / 2);
+        double barMid = bar.getPosition().getX() + (Constants.BAR_WIDTH / 2);
         double ballMid = ball.getPosition().getX() + (Constants.BALL_WIDTH / 2);
 
         // Si la barra y la bola suben depende la reaccion de la bola

@@ -11,7 +11,7 @@ public class LeftBarBallColission extends BarBallColission {
         double barTop = bar.getPosition().getY();
         double barBottom = bar.getPosition().getY() + Constants.BAR_HEIGHT;
         double barLeft = bar.getPosition().getX();
-        double barRight = bar.getPosition().getX() + Constants.BAR_WIDHT;
+        double barRight = bar.getPosition().getX() + Constants.BAR_WIDTH;
 
         double ballTop = ball.getPosition().getY() + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
         double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
@@ -53,7 +53,7 @@ public class LeftBarBallColission extends BarBallColission {
         double barTop = bar.getPosition().getY();
         double barBottom = bar.getPosition().getY() + Constants.BAR_HEIGHT;
         double barLeft = bar.getPosition().getX();
-        double barRight = bar.getPosition().getX() + Constants.BAR_WIDHT;
+        double barRight = bar.getPosition().getX() + Constants.BAR_WIDTH;
 
         double ballTop = ball.getPosition().getY() + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
         double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());

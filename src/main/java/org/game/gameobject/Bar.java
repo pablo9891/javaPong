@@ -3,7 +3,7 @@ package org.game.gameobject;
 import org.game.math.Vector2D;
 import org.game.utils.Constants;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Bar extends GameObject {
 

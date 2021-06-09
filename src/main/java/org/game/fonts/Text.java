@@ -1,6 +1,6 @@
 package org.game.fonts;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Text {
     private String text;

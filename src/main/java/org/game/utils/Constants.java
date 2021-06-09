@@ -20,7 +20,7 @@ public class Constants {
             getInstance().
             getBooleanProperty("is_focusable_window");
 
-    public static final double BAR_WIDHT = Configuration.getInstance().getDoubleProperty("bar_width");
+    public static final double BAR_WIDTH = Configuration.getInstance().getDoubleProperty("bar_width");
     public static final double BAR_HEIGHT = Configuration.getInstance().getDoubleProperty("bar_height");
 
     public static final double BALL_WIDTH = Configuration.getInstance().getDoubleProperty("ball_width");
@@ -59,63 +59,63 @@ public class Constants {
 
     public static double TOP_BAR, BOTTOM_BAR ;
 
-    public static double TOP_BAR_MARGIN=Configuration.
+    public static final double TOP_BAR_MARGIN=Configuration.
             getInstance().
             getDoubleProperty("top_bar_margin");
 
-    public static String BAR_COLOR=Configuration.
+    public static final String BAR_COLOR=Configuration.
             getInstance().
             getStringProperty("bar_color");
 
-    public static String BALL_COLOR=Configuration.
+    public static final String BALL_COLOR=Configuration.
             getInstance().
             getStringProperty("ball_color");
 
-    public static String BACKGROUND_COLOR=Configuration.
+    public static final String BACKGROUND_COLOR=Configuration.
             getInstance().
             getStringProperty("background_color");
 
-    public static double MAX_BALL_VELOCITY = Configuration.
+    public static final double MAX_BALL_VELOCITY = Configuration.
             getInstance().
             getDoubleProperty("max_ball_vel");
 
-    public static double MIN_BALL_VELOCITY = Configuration.
+    public static final double MIN_BALL_VELOCITY = Configuration.
             getInstance().
             getDoubleProperty("min_ball_vel");
 
-    public static int MAX_POINTS = Configuration.
+    public static final int MAX_POINTS = Configuration.
             getInstance().
             getIntegerProperty("max_points");
 
-    public static boolean IS_DEBUG_SET = Configuration.
+    public static final boolean IS_DEBUG_SET = Configuration.
             getInstance().
             getBooleanProperty("is_debug_set");
 
-    public static String ROOT_SOUND_FOLDER = Configuration.
+    public static final String ROOT_SOUND_FOLDER = Configuration.
             getInstance().
             getStringProperty("root_sound_folder");
 
-    public static int FPS = Configuration.
+    public static final int FPS = Configuration.
             getInstance().
             getIntegerProperty("fps");
 
-    public static double FRAME_DELAY = 1000d / Constants.FPS;
+    public static final double FRAME_DELAY = 1000d / Constants.FPS;
 
-    public static double MAX_VEL = Configuration.
+    public static final double MAX_VEL = Configuration.
             getInstance().
             getIntegerProperty("max_vel");
 
-    public static double MID_VEL = Configuration.
+    public static final double MID_VEL = Configuration.
             getInstance().
             getIntegerProperty("mid_vel");
 
-    public static double MIN_VEL = Configuration.
+    public static final double MIN_VEL = Configuration.
             getInstance().
             getIntegerProperty("min_vel");
     /**
      * Ball max angle in radians
      */
-    public static double MAX_ANGLE = Configuration.
+    public static final double MAX_ANGLE = Configuration.
             getInstance().
             getIntegerProperty("max_angle_in_radians");
 }

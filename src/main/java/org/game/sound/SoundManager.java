@@ -2,7 +2,9 @@ package org.game.sound;
 
 import org.game.utils.Constants;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
