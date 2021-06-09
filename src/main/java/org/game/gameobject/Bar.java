@@ -1,6 +1,7 @@
 package org.game.gameobject;
 
 import org.game.math.Vector2D;
+import org.game.utils.Constants;
 
 import java.awt.*;
 
@@ -24,5 +25,21 @@ public class Bar extends GameObject {
 
         this.position = new Vector2D(newXPosition, newYPosition);
         this.direction = new Vector2D(0, 0);
+    }
+
+    public void down(double delta) {
+        double newXPosition = this.position.getX();
+        double newYPosition = this.position.getY() + (vel.getY() * delta);
+
+        if(newYPosition + Constants.BAR_HEIGHT < Constants.BOTTOM_BAR)
+            this.position = new Vector2D(newXPosition, newYPosition);
+    }
+
+    public void up(double delta) {
+        double newXPosition = this.position.getX();
+        double newYPosition = this.position.getY() - (vel.getY() * delta);
+
+        if(newYPosition > (Constants.TOP_BAR + Constants.TOP_BAR_MARGIN))
+            this.position = new Vector2D(newXPosition, newYPosition);
     }
 }

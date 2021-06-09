@@ -2,9 +2,9 @@ package org.game.window;
 
 import org.game.fonts.Text;
 import org.game.fonts.TextManager;
-import org.game.gamestates.states.FinishGameState;
 import org.game.gamestates.GameState;
 import org.game.gamestates.states.MenuState;
+import org.game.gamestates.states.PlayIAState;
 import org.game.sound.SoundManager;
 import org.game.time.Time;
 import org.game.utils.Constants;
@@ -51,10 +51,10 @@ public class Window extends JFrame implements Runnable {
         this.height = Constants.WINDOW_HEIGHT;
         this.setTitle(windowName);
         this.setSize(new Dimension(this.width, this.height));
-        this.setVisible(Constants.IS_VISIBLE_WINDOW);
         this.setResizable(Constants.IS_RESIZABLE_WINDOW);
         this.setFocusable(Constants.IS_FOCUSABLE_WINDOW);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(Constants.IS_VISIBLE_WINDOW);
         textManager = new TextManager();
         graphics = (Graphics2D)this.getGraphics();
         soundManager = new SoundManager();
