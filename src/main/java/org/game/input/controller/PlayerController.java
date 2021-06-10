@@ -14,7 +14,7 @@ public class PlayerController {
         this.gameObject = gameObject;
     }
 
-    public void update(Double delta, KeyboardCallback callback) {
+    public void update(Double delta, KeyboardCallback<GameObject, KeyListenerCallback, Double> callback) {
         callback.apply(this.gameObject, keyListener, delta);
     }
 }

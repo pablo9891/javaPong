@@ -8,7 +8,7 @@ public abstract class GameState {
 
    protected Window window;
 
-    public GameState(Window w) { this.window = w; }
+    protected GameState(Window w) { this.window = w; }
 
     public abstract void loadResources();
 

@@ -15,11 +15,14 @@ public class MenuState extends GameState {
 
     private MouseListenerCallback mouseListener;
 
-    private Text pongText, playOponentText, playIAText, exitText;
+    private Text pongText;
+    private Text playOpponentText;
+    private Text playIAText;
+    private Text exitText;
 
     MouseCallback<GameObject, MouseListenerCallback, Double> menuMouseCallback = (gameObject, listener, delta) -> {
         if(listener.isMousePressed()) {
-            if(isMouseOverlapText(playOponentText))
+            if(isMouseOverlapText(playOpponentText))
                 window.setNewState(new PlayOpponentState(window));
             if(isMouseOverlapText(playIAText))
                 window.setNewState(new PlayIAState(window));
@@ -39,17 +42,17 @@ public class MenuState extends GameState {
         window.addMouseListener(mouseListener);
         window.addMouseMotionListener(mouseListener);
         pongText = new Text("Pong", (Constants.WINDOW_WIDTH / 2) - 100, (Constants.WINDOW_HEIGHT / 3), 100, Color.WHITE);
-        playOponentText = new Text("Play against opponent", (Constants.WINDOW_WIDTH / 2) - 290, pongText.getY() + pongText.getHeight() + wordSeparation, 48, Color.WHITE);
-        playIAText = new Text("Play against IA", (Constants.WINDOW_WIDTH / 2) - 200, playOponentText.getY() + playOponentText.getHeight() + wordSeparation, 48, Color.WHITE);
+        playOpponentText = new Text("Play against opponent", (Constants.WINDOW_WIDTH / 2) - 290, pongText.getY() + pongText.getHeight() + wordSeparation, 48, Color.WHITE);
+        playIAText = new Text("Play against IA", (Constants.WINDOW_WIDTH / 2) - 200, playOpponentText.getY() + playOpponentText.getHeight() + wordSeparation, 48, Color.WHITE);
         exitText = new Text("Exit", (Constants.WINDOW_WIDTH / 2) - 40, playIAText.getY() + playIAText.getHeight() + wordSeparation, 48, Color.WHITE);
     }
 
     @Override
     public void update(double delta) {
-        if(isMouseOverlapText(playOponentText))
-            playOponentText.setColor(Color.GREEN);
+        if(isMouseOverlapText(playOpponentText))
+            playOpponentText.setColor(Color.GREEN);
         else
-            playOponentText.setColor(Color.WHITE);
+            playOpponentText.setColor(Color.WHITE);
 
         if(isMouseOverlapText(playIAText))
             playIAText.setColor(Color.GREEN);
@@ -70,14 +73,14 @@ public class MenuState extends GameState {
         buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
 
         window.getText().draw(pongText, buffer);
-        window.getText().draw(playOponentText, buffer);
+        window.getText().draw(playOpponentText, buffer);
         window.getText().draw(playIAText, buffer);
         window.getText().draw(exitText, buffer);
     }
 
     @Override
     public void loadGame() {
-
+        // Empty method
     }
 
     private boolean isMouseOverlapText(Text txt) {

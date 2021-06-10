@@ -11,7 +11,7 @@ import org.game.window.Window;
      - Agregar estado de Finalizacion (DONE)
      - Mejorar textos en el menu principal (DONE)
      - Arreglar issue de pantalla en blanco al principio
-     - Arreglar typos y comentar codigo
+     - Arreglar typos y comentar codigo (DONE)
 */
 public class App {
     public static void main( String[] args ) {

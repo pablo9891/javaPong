@@ -7,14 +7,14 @@ import org.game.utils.Constants;
 
 import java.awt.Color;
 
-public abstract class BarBallColission {
+public abstract class BarBallCollision {
 
     private double getRandomNumber(double min, double max) {
         return min + (Math.random() * max);
     }
 
     private double getNewDirection(boolean shouldReduce, double direction) {
-        double newDirection = 0.0;
+        double newDirection;
 
         if(direction >= 2 || direction <= -2)
             return direction;
@@ -33,7 +33,7 @@ public abstract class BarBallColission {
     }
 
     private double getNewVelocity(boolean shouldReduce, double velocity) {
-        double newVelocity = 0.0;
+        double newVelocity;
 
         if(velocity >= Constants.MAX_BALL_VELOCITY || velocity <= Constants.MIN_BALL_VELOCITY)
             return velocity;
@@ -59,7 +59,7 @@ public abstract class BarBallColission {
         return ballTop <= barTop && barTop <= ballBottom;
     }
 
-    protected void processBallColissionWithTopAndBottom(Bar bar, Ball ball) {
+    protected void processBallCollisionWithTopAndBottom(Bar bar, Ball ball) {
         double newXVel = getNewVelocity(false, ball.getVelocity().getX());
         double newYVel = getNewVelocity(false, ball.getVelocity().getY());
 
@@ -86,12 +86,12 @@ public abstract class BarBallColission {
         }
 
         if(Constants.IS_DEBUG_SET) {
-            System.out.println("BALL DIRECTION: " + ball.getDirection().toString());
-            System.out.println("BALL VELOCITY: " + ball.getVelocity().toString());
+            System.out.println("BALL DIRECTION: " + ball.getDirection());
+            System.out.println("BALL VELOCITY: " + ball.getVelocity());
         }
     }
 
-    protected void middleBarColission(Ball ball, Bar bar) {
+    protected void middleBarCollision(Ball ball) {
         double newXVel = getNewVelocity(true, ball.getVelocity().getX());
         double newYVel = getNewVelocity(true, ball.getVelocity().getY());
 
@@ -99,14 +99,14 @@ public abstract class BarBallColission {
         ball.setVelocity(new Vector2D(newXVel, newYVel));
 
         if(Constants.IS_DEBUG_SET) {
-            System.out.println("BALL DIRECTION: " + ball.getDirection().toString());
-            System.out.println("BALL VELOCITY: " + ball.getVelocity().toString());
+            System.out.println("BALL DIRECTION: " + ball.getDirection());
+            System.out.println("BALL VELOCITY: " + ball.getVelocity());
         }
     }
 
-    public void processBarBallColissionOnEdges(Bar bar, Ball ball, double delta) {
+    public void processBarBallCollisionOnEdges(Bar bar, Ball ball, double delta) {
         ball.setColor(Color.WHITE);
-        System.out.println("COlission with edge");
+        System.out.println("Collision with edge");
         double ballTop = ball.getPosition().getY() + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
         double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
         double barTop = bar.getPosition().getY();
@@ -130,7 +130,7 @@ public abstract class BarBallColission {
         }
     }
 
-    protected void processBarBallColissionOnSurface(Bar bar, Ball ball, double delta) {
+    protected void processBarBallCollisionOnSurface(Bar bar, Ball ball, double delta) {
         double barTop = bar.getPosition().getY();
         double barBottom = bar.getPosition().getY() + Constants.BAR_HEIGHT;
         double barTopMid = barTop + (Constants.BAR_HEIGHT / 3);
@@ -143,7 +143,7 @@ public abstract class BarBallColission {
 
         if(Constants.IS_DEBUG_SET) {
             System.out.println("==========================");
-            System.out.println("BARTOPMID: " + barTopMid);
+            System.out.println("BARTOPMID: " +  barTopMid);
             System.out.println("BARMIDBOTTOM: " + barMidBottom);
             System.out.println("MID BALL: " + midBall);
             System.out.println("IS BETWEEN TOP COORDS: " + isCenterBetweenCoords(barTop, barTopMid, (ballBottom - ballTop) / 2));
@@ -154,25 +154,25 @@ public abstract class BarBallColission {
 
         if(isCenterBetweenCoords(barTop, barTopMid, midBall)) {
             if(Constants.IS_DEBUG_SET)
-                System.out.println("Colission with TOP");
+                System.out.println("Collision with TOP");
             ball.setColor(Color.CYAN);
-            processBallColissionWithTopAndBottom(bar, ball);
+            processBallCollisionWithTopAndBottom(bar, ball);
         }
         else if(isCenterBetweenCoords(barTopMid, barMidBottom, midBall)) {
             if(Constants.IS_DEBUG_SET)
-                System.out.println("Colission with MID");
+                System.out.println("Collision with MID");
             ball.setColor(Color.ORANGE);
-            middleBarColission(ball, bar);
+            middleBarCollision(ball);
         }
         else if(isCenterBetweenCoords(barMidBottom, barBottom, midBall)) {
             if(Constants.IS_DEBUG_SET)
-                System.out.println("Colission with BOTTOM");
+                System.out.println("Collision with BOTTOM");
             ball.setColor(Color.WHITE);
-            processBallColissionWithTopAndBottom(bar, ball);
+            processBallCollisionWithTopAndBottom(bar, ball);
         }
     }
 
-    public abstract boolean isBarBallColissionOnSurface(Bar bar, Ball ball, double delta);
+    public abstract boolean isBarBallCollisionOnSurface(Bar bar, Ball ball, double delta);
 
-    public abstract boolean isBarBallColissionOnEdges(Bar bar, Ball ball, double delta);
+    public abstract boolean isBarBallCollisionOnEdges(Bar bar, Ball ball, double delta);
 }

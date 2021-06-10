@@ -17,7 +17,8 @@ import java.awt.Color;
 
 public class Window extends JFrame implements Runnable {
     private Thread windowThread;
-    private int width, height;
+    private int windowWidth;
+    private  int windowHeight;
     private String windowName;
     private boolean isExecuting;
     private GameState gameState;
@@ -27,7 +28,12 @@ public class Window extends JFrame implements Runnable {
     private SoundManager soundManager;
     private Graphics graphics;
 
-    private Text avgFPSText, frameStartText, frameEndText, elapsedTimeText, deltaText, delayText;
+    private Text avgFPSText;
+    private Text frameStartText;
+    private Text frameEndText;
+    private Text elapsedTimeText;
+    private Text deltaText;
+    private Text delayText;
     private double avgFPS = 0;
 
     private double frameElapasedTime = 0;
@@ -50,16 +56,16 @@ public class Window extends JFrame implements Runnable {
 
     private void setWindowProperties() {
         this.windowName = Constants.WINDOW_NAME;
-        this.width = Constants.WINDOW_WIDTH;
-        this.height = Constants.WINDOW_HEIGHT;
+        this.windowWidth = Constants.WINDOW_WIDTH;
+        this.windowHeight = Constants.WINDOW_HEIGHT;
         this.setTitle(windowName);
-        this.setSize(new Dimension(this.width, this.height));
+        this.setSize(new Dimension(this.windowWidth, this.windowHeight));
         this.setResizable(Constants.IS_RESIZABLE_WINDOW);
         this.setFocusable(Constants.IS_FOCUSABLE_WINDOW);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(Constants.IS_VISIBLE_WINDOW);
         textManager = new TextManager();
-        graphics = (Graphics2D)this.getGraphics();
+        graphics = this.getGraphics();
         soundManager = new SoundManager();
         frames = 0;
 
@@ -82,8 +88,6 @@ public class Window extends JFrame implements Runnable {
         Graphics2D doubleBuffer = (Graphics2D) g;
 
         doubleBuffer.setColor(getBackground());
-        //doubleBuffer.fillRect(0, 0, this.getWindowWidth(), this.getWindowHeight());
-
         gameState.render(doubleBuffer);
 
         if(Constants.IS_DEBUG_SET) {
@@ -151,11 +155,11 @@ public class Window extends JFrame implements Runnable {
     }
 
     public int getWindowWidth() {
-        return width;
+        return windowWidth;
     }
 
     public int getWindowHeight() {
-        return height;
+        return windowHeight;
     }
 
     public String getWindowName() {

@@ -7,16 +7,17 @@ import org.game.gameobject.Bar;
 import org.game.sound.SoundManager;
 import org.game.utils.Constants;
 
-public class ColissionHelper {
+public class CollisionHelper {
 
-    private BarBallColission barBallColission;
+    private BarBallCollision barBallCollision;
+    private static final String BOUNCE_SOUND_KEY = "bounce";
 
-    public ColissionHelper() {
+    public CollisionHelper() {
         // By default
-        barBallColission = new LeftBarBallColission();
+        barBallCollision = new LeftBarBallCollision();
     }
 
-    public void processColissionBallWithTopAndBottom(Ball ball, double delta) {
+    public void processCollisionBallWithTopAndBottom(Ball ball, double delta) {
         Vector2D newBallPosition;
         if(ball.getDirection().getY() < 0)
             newBallPosition = new Vector2D(ball.getPosition().getX(), (ball.getPosition().getY() - (ball.getVelocity().getY() * delta)));
@@ -25,11 +26,11 @@ public class ColissionHelper {
 
         if(newBallPosition.getY() < (Constants.TOP_BAR + Constants.TOP_BAR_MARGIN)) {
             ball.setDirection(new Vector2D(ball.getDirection().getX(), 1));
-            SoundManager.play("bounce", false);
+            SoundManager.play(BOUNCE_SOUND_KEY, false);
         }
         if(newBallPosition.getY() + Constants.BALL_HEIGHT > (Constants.BOTTOM_BAR - Constants.TOP_BAR_MARGIN)) {
             ball.setDirection(new Vector2D(ball.getDirection().getX(), -1));
-            SoundManager.play("bounce", false);
+            SoundManager.play(BOUNCE_SOUND_KEY, false);
         }
     }
 
@@ -45,19 +46,19 @@ public class ColissionHelper {
         return false;
     }
 
-    public void processBarBallColission(Bar bar, Ball ball, double delta) {
+    public void processBarBallCollision(Bar bar, Ball ball, double delta) {
         if(bar.getForwardVector().getX() > 0)
-            barBallColission = new LeftBarBallColission();
+            barBallCollision = new LeftBarBallCollision();
         if(bar.getForwardVector().getX() < 0)
-            barBallColission = new RightBarBallColission();
+            barBallCollision = new RightBarBallCollision();
 
-        if(barBallColission.isBarBallColissionOnEdges(bar, ball, delta)) {
-            barBallColission.processBarBallColissionOnEdges(bar, ball, delta);
-            SoundManager.play("bounce", false);
+        if(barBallCollision.isBarBallCollisionOnEdges(bar, ball, delta)) {
+            barBallCollision.processBarBallCollisionOnEdges(bar, ball, delta);
+            SoundManager.play(BOUNCE_SOUND_KEY, false);
         }
-        if(barBallColission.isBarBallColissionOnSurface(bar, ball, delta)) {
-            barBallColission.processBarBallColissionOnSurface(bar, ball, delta);
-            SoundManager.play("bounce", false);
+        if(barBallCollision.isBarBallCollisionOnSurface(bar, ball, delta)) {
+            barBallCollision.processBarBallCollisionOnSurface(bar, ball, delta);
+            SoundManager.play(BOUNCE_SOUND_KEY, false);
         }
     }
 }

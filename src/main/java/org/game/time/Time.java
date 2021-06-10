@@ -2,7 +2,7 @@ package org.game.time;
 
 public class Time {
 
-    public Time() { }
+    public Time() { /* Empty constructor */ }
 
     // Time since 1970
     private double timeStartedInMiliSeconds = 0;

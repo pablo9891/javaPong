@@ -6,7 +6,8 @@ import java.awt.event.MouseMotionListener;
 
 public class MouseListenerCallback extends MouseAdapter implements MouseMotionListener {
     private boolean isPressed = false;
-    private double x = 0.0, y = 0.0;
+    private double x = 0.0;
+    private double y = 0.0;
 
     @Override
     public void mousePressed(MouseEvent e) { isPressed = true; }

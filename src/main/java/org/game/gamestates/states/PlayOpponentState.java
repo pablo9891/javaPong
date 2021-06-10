@@ -1,6 +1,6 @@
 package org.game.gamestates.states;
 
-import org.game.colission.ColissionHelper;
+import org.game.colission.CollisionHelper;
 import org.game.fonts.Text;
 import org.game.gameobject.Ball;
 import org.game.gameobject.Bar;
@@ -19,15 +19,19 @@ import java.awt.event.KeyEvent;
 
 public class PlayOpponentState extends GameState {
 
-    private Bar leftBar, rightBar;
+    private Bar leftBar;
+    private Bar rightBar;
     private Ball ball;
-    private int leftMarker, rightMarker;
-    private PlayerController leftBarController, rightBarController;
-    private ColissionHelper colissionHelper;
+    private int leftMarker;
+    private int rightMarker;
+    private PlayerController leftBarController;
+    private PlayerController rightBarController;
+    private CollisionHelper collisionHelper;
     private KeyListenerCallback keyListener;
-    private Text leftMarkerText, rightMarkerText;
+    private Text leftMarkerText;
+    private Text rightMarkerText;
 
-    KeyboardCallback<GameObject, KeyListenerCallback, Double> leftBarListenerCalback = (gameObject, listener, delta) ->
+    KeyboardCallback<GameObject, KeyListenerCallback, Double> leftBarListenerCallback = (gameObject, listener, delta) ->
     {
         if(keyListener.isKeyPressed(KeyEvent.VK_W)) {
             Vector2D newBarPosition = new Vector2D(gameObject.getPosition().getX(),
@@ -44,7 +48,7 @@ public class PlayOpponentState extends GameState {
         }
     };
 
-    KeyboardCallback<GameObject, KeyListenerCallback, Double> rightBarListenerCalback = (gameObject, listener, delta) ->
+    KeyboardCallback<GameObject, KeyListenerCallback, Double> rightBarListenerCallback = (gameObject, listener, delta) ->
     {
         if(keyListener.isKeyPressed(KeyEvent.VK_UP)) {
             Vector2D newBarPosition = new Vector2D(gameObject.getPosition().getX(),
@@ -86,19 +90,19 @@ public class PlayOpponentState extends GameState {
         if(leftMarker == Constants.MAX_POINTS)
             window.setNewState(new FinishGameState(window, "P1"));
 
-        leftBarController.update(delta, leftBarListenerCalback);
-        rightBarController.update(delta, rightBarListenerCalback);
+        leftBarController.update(delta, leftBarListenerCallback);
+        rightBarController.update(delta, rightBarListenerCallback);
 
-        colissionHelper.processColissionBallWithTopAndBottom(ball, delta);
-        colissionHelper.processBarBallColission(leftBar, ball, delta);
-        colissionHelper.processBarBallColission(rightBar, ball, delta);
+        collisionHelper.processCollisionBallWithTopAndBottom(ball, delta);
+        collisionHelper.processBarBallCollision(leftBar, ball, delta);
+        collisionHelper.processBarBallCollision(rightBar, ball, delta);
 
-        if(colissionHelper.isPointForBar(leftBar, ball)) {
+        if(collisionHelper.isPointForBar(leftBar, ball)) {
             leftMarker++;
             ball.setPosition(new Vector2D(Constants.BALL_INITIAL_X, Constants.BALL_INITIAL_Y));
             ball.setDirection(new Vector2D(-1, 1));
         }
-        if(colissionHelper.isPointForBar(rightBar, ball)) {
+        if(collisionHelper.isPointForBar(rightBar, ball)) {
             rightMarker++;
             ball.setPosition(new Vector2D(Constants.BALL_INITIAL_X, Constants.BALL_INITIAL_Y));
             ball.setDirection(new Vector2D(1, -1));
@@ -149,7 +153,7 @@ public class PlayOpponentState extends GameState {
         leftBarController = new PlayerController(leftBar, keyListener);
         rightBarController = new PlayerController(rightBar, keyListener);
 
-        colissionHelper = new ColissionHelper();
+        collisionHelper = new CollisionHelper();
 
         ball.setDirection(new Vector2D(-1, -1));
     }

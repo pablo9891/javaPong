@@ -4,7 +4,7 @@ public class Constants {
 
     private Constants() { }
 
-    public static final String CONFIG_FILE = "config.properties";
+    public static final String CONFIG_FILE = "application.properties";
 
     public static final String WINDOW_NAME = Configuration.getInstance().getStringProperty("window_name");
     public static final int WINDOW_WIDTH = Configuration.getInstance().getIntegerProperty("window_width");
@@ -57,7 +57,9 @@ public class Constants {
             getInstance().
             getDoubleProperty("ball_initial_vel_y");
 
-    public static double TOP_BAR, BOTTOM_BAR ;
+    public static double TOP_BAR;
+
+    public static double BOTTOM_BAR ;
 
     public static final double TOP_BAR_MARGIN=Configuration.
             getInstance().
@@ -115,7 +117,7 @@ public class Constants {
     /**
      * Ball max angle in radians
      */
-    public static final double MAX_ANGLE = Configuration.
+   /* public static final double MAX_ANGLE = Configuration.
             getInstance().
-            getIntegerProperty("max_angle_in_radians");
+            getIntegerProperty("max_angle_in_radians");*/
 }

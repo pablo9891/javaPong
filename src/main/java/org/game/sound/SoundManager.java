@@ -10,21 +10,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SoundManager {
-    private static Map<String, Clip> soundsMap;
+    private static Map<String, Clip> soundsMap = new HashMap<>();
 
-    public SoundManager() {
-        soundsMap = new HashMap<>();
-    }
+    public SoundManager() { /* Empty constructor */ }
 
     public void addSound(String key, String file) {
         try {
             InputStream audioStream = getClass().getClassLoader().getResourceAsStream(Constants.ROOT_SOUND_FOLDER + file);
-            //File audioFile = new File(file);
-            Clip clip = null;
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(audioStream));
-            clip.setFramePosition(0);
-            soundsMap.put(key, clip);
+            if(audioStream != null) {
+                Clip clip = null;
+                clip = AudioSystem.getClip();
+                clip.open(AudioSystem.getAudioInputStream(audioStream));
+                clip.setFramePosition(0);
+                soundsMap.put(key, clip);
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }

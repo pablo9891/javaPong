@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 import org.game.window.Window;
 
 public class KeyListenerCallback implements KeyListener {
-    private boolean keyPressed[];
+    private boolean[] keyPressed;
     private Window window;
 
     public KeyListenerCallback(Window w) {
@@ -16,7 +16,7 @@ public class KeyListenerCallback implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        // Empty method
     }
 
     @Override

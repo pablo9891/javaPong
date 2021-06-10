@@ -36,8 +36,8 @@ public class Vector2D {
     public boolean equals(Object o) {
         if(o instanceof Vector2D) {
             Vector2D v = (Vector2D) o;
-            if(this.x == v.getX() && this.y == v.getY())
-                return true;
+            return this.x == v.getX() && this.y == v.getY() &&
+                    this.hashCode() == v.hashCode();
         }
         return false;
     }
@@ -45,5 +45,11 @@ public class Vector2D {
     @Override
     public String toString() {
         return "[ x: " + getX() + " y: " + getY() + " ]";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return (97 * hash + (int)x + (int)y);
     }
 }

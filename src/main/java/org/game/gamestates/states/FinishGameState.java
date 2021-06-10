@@ -15,7 +15,9 @@ public class FinishGameState extends GameState {
 
     private MouseListenerCallback mouseListener;
 
-    private Text winnerText, retryText, exitText;
+    private Text winnerText;
+    private Text retryText;
+    private Text exitText;
 
     String winnerName;
 
@@ -71,7 +73,7 @@ public class FinishGameState extends GameState {
 
     @Override
     public void loadGame() {
-
+        // Empty method
     }
 
     private boolean isMouseOverlapText(Text txt) {

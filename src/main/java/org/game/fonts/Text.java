@@ -3,19 +3,21 @@ package org.game.fonts;
 import java.awt.Color;
 
 public class Text {
-    private String text;
+    private String txt;
     private Color color;
-    private int x, y;
-    private int width, height;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
     private int size;
 
-    public Text(String text, int x, int y, int size, Color color) {
-        this.text = text;
+    public Text(String txt, int x, int y, int size, Color color) {
+        this.txt = txt;
         this.color = color;
         this.x = x;
         this.y = y;
         this.size = size;
-        this.width = size * this.text.length();
+        this.width = size * this.txt.length();
         this.height = size;
     }
 
@@ -28,11 +30,11 @@ public class Text {
     }
 
     public String getText() {
-        return text;
+        return txt;
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.txt = text;
     }
 
     public Color getColor() {
