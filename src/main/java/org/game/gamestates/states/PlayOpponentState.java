@@ -1,6 +1,6 @@
 package org.game.gamestates.states;
 
-import org.game.colission.CollisionHelper;
+import org.game.collision.CollisionHelper;
 import org.game.fonts.Text;
 import org.game.gameobject.Ball;
 import org.game.gameobject.Bar;

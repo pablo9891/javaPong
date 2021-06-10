@@ -12,6 +12,7 @@ import org.game.window.Window;
      - Mejorar textos en el menu principal (DONE)
      - Arreglar issue de pantalla en blanco al principio
      - Arreglar typos y comentar codigo (DONE)
+     - Arreglar logging con SLF4J por consola
 */
 public class App {
     public static void main( String[] args ) {

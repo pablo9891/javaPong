@@ -1,4 +1,4 @@
-package org.game.colission;
+package org.game.collision;
 
 import org.game.math.Vector2D;
 import org.game.gameobject.Ball;

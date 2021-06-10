@@ -1,14 +1,17 @@
-package org.game.colission;
+package org.game.collision;
 
 import org.game.gameobject.Ball;
 import org.game.gameobject.Bar;
 import org.game.math.Vector2D;
 import org.game.utils.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.Color;
 
 public abstract class BarBallCollision {
 
+    Logger logger = LoggerFactory.getLogger(BarBallCollision.class);
     private double getRandomNumber(double min, double max) {
         return min + (Math.random() * max);
     }
@@ -86,8 +89,8 @@ public abstract class BarBallCollision {
         }
 
         if(Constants.IS_DEBUG_SET) {
-            System.out.println("BALL DIRECTION: " + ball.getDirection());
-            System.out.println("BALL VELOCITY: " + ball.getVelocity());
+            logger.debug("BALL DIRECTION: {}", ball.getDirection());
+            logger.debug("BALL VELOCITY: {}", ball.getVelocity());
         }
     }
 
@@ -99,14 +102,14 @@ public abstract class BarBallCollision {
         ball.setVelocity(new Vector2D(newXVel, newYVel));
 
         if(Constants.IS_DEBUG_SET) {
-            System.out.println("BALL DIRECTION: " + ball.getDirection());
-            System.out.println("BALL VELOCITY: " + ball.getVelocity());
+            logger.debug("BALL DIRECTION: {}", ball.getDirection());
+            logger.debug("BALL VELOCITY: {}", ball.getVelocity());
         }
     }
 
     public void processBarBallCollisionOnEdges(Bar bar, Ball ball, double delta) {
         ball.setColor(Color.WHITE);
-        System.out.println("Collision with edge");
+        logger.debug("Collision with edge");
         double ballTop = ball.getPosition().getY() + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
         double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
         double barTop = bar.getPosition().getY();
@@ -142,31 +145,31 @@ public abstract class BarBallCollision {
         double midBall = ballTop + (ballBottom - ballTop) / 2;
 
         if(Constants.IS_DEBUG_SET) {
-            System.out.println("==========================");
-            System.out.println("BARTOPMID: " +  barTopMid);
-            System.out.println("BARMIDBOTTOM: " + barMidBottom);
-            System.out.println("MID BALL: " + midBall);
-            System.out.println("IS BETWEEN TOP COORDS: " + isCenterBetweenCoords(barTop, barTopMid, (ballBottom - ballTop) / 2));
-            System.out.println("IS BETWEEN MID COORDS: " + isCenterBetweenCoords(barTopMid, barMidBottom, (ballBottom - ballTop) / 2));
-            System.out.println("IS BETWEEN BOTTOM COORDS: " + isCenterBetweenCoords(barMidBottom, barBottom, (ballBottom - ballTop) / 2));
-            System.out.println("==========================");
+            logger.debug("==========================");
+            logger.debug("BARTOPMID: {}",  barTopMid);
+            logger.debug("BARMIDBOTTOM: {}", barMidBottom);
+            logger.debug("MID BALL: {}", midBall);
+            logger.debug("IS BETWEEN TOP COORDS: {}", isCenterBetweenCoords(barTop, barTopMid, (ballBottom - ballTop) / 2));
+            logger.debug("IS BETWEEN MID COORDS: {}", isCenterBetweenCoords(barTopMid, barMidBottom, (ballBottom - ballTop) / 2));
+            logger.debug("IS BETWEEN BOTTOM COORDS: {}", isCenterBetweenCoords(barMidBottom, barBottom, (ballBottom - ballTop) / 2));
+            logger.debug("==========================");
         }
 
         if(isCenterBetweenCoords(barTop, barTopMid, midBall)) {
             if(Constants.IS_DEBUG_SET)
-                System.out.println("Collision with TOP");
+                logger.debug("Collision with TOP");
             ball.setColor(Color.CYAN);
             processBallCollisionWithTopAndBottom(bar, ball);
         }
         else if(isCenterBetweenCoords(barTopMid, barMidBottom, midBall)) {
             if(Constants.IS_DEBUG_SET)
-                System.out.println("Collision with MID");
+                logger.debug("Collision with MID");
             ball.setColor(Color.ORANGE);
             middleBarCollision(ball);
         }
         else if(isCenterBetweenCoords(barMidBottom, barBottom, midBall)) {
             if(Constants.IS_DEBUG_SET)
-                System.out.println("Collision with BOTTOM");
+                logger.debug("Collision with BOTTOM");
             ball.setColor(Color.WHITE);
             processBallCollisionWithTopAndBottom(bar, ball);
         }

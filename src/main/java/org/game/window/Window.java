@@ -16,6 +16,7 @@ import java.awt.Image;
 import java.awt.Color;
 
 public class Window extends JFrame implements Runnable {
+
     private Thread windowThread;
     private int windowWidth;
     private  int windowHeight;
@@ -36,7 +37,7 @@ public class Window extends JFrame implements Runnable {
     private Text delayText;
     private double avgFPS = 0;
 
-    private double frameElapasedTime = 0;
+    private double frameElapsedTime = 0;
     private double frameStartTime = 0;
     private double delta = 0;
     private double frameEndTime = 0;
@@ -94,7 +95,7 @@ public class Window extends JFrame implements Runnable {
             avgFPSText.setText("Avg FPS: " + Math.round(avgFPS * 100.0) / 100.0);
             frameStartText.setText("Frame start: " + Math.round(frameStartTime * 100.0) / 100.0);
             frameEndText.setText("Frame end: " + Math.round(frameEndTime * 100.0) / 100.0);
-            elapsedTimeText.setText("Elapsed time: " + Math.round(frameElapasedTime * 100.0) / 100.0);
+            elapsedTimeText.setText("Elapsed time: " + Math.round(frameElapsedTime * 100.0) / 100.0);
             deltaText.setText("Delta: " + Math.round(delta * 10000.0) / 10000.0);
 
             textManager.draw(avgFPSText, doubleBuffer);
@@ -136,11 +137,11 @@ public class Window extends JFrame implements Runnable {
             update(delta);
             render();
 
-            frameElapasedTime = time.getTime() - frameStartTime;
+            frameElapsedTime = time.getTime() - frameStartTime;
 
-            if(frameElapasedTime < Constants.FRAME_DELAY) {
+            if(frameElapsedTime < Constants.FRAME_DELAY) {
                 try {
-                    Thread.sleep((long) (Constants.FRAME_DELAY - frameElapasedTime));
+                    Thread.sleep((long) (Constants.FRAME_DELAY - frameElapsedTime));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

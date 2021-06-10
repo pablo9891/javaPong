@@ -1,4 +1,4 @@
-package org.game.colission;
+package org.game.collision;
 
 import org.game.gameobject.Ball;
 import org.game.gameobject.Bar;
