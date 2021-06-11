@@ -102,7 +102,7 @@ public class PlayIAState extends GameState {
 
     @Override
     public void render(Graphics2D buffer) {
-        buffer.setColor(Color.BLACK);
+        buffer.setColor(Constants.BACKGROUND_COLOR);
         buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
 
         window.getText().draw(leftMarkerText, buffer);
@@ -120,19 +120,19 @@ public class PlayIAState extends GameState {
                 Constants.BAR_HEIGHT,
                 new Vector2D(Constants.BAR_INITIAL_X_VEL, Constants.BAR_INITIAL_Y_VEL),
                 new Vector2D(1, 0),
-                Color.GREEN);
+                Constants.BAR_COLOR);
         this.rightBar = new Bar(new Vector2D(Constants.RIGHT_BAR_INITAL_X, Constants.RIGHT_BAR_INITIAL_Y),
                 Constants.BAR_WIDTH,
                 Constants.BAR_HEIGHT,
                 new Vector2D(Constants.BAR_INITIAL_X_VEL, Constants.BAR_INITIAL_Y_VEL),
                 new Vector2D(-1, 0),
-                Color.GREEN);
+                Constants.BAR_COLOR);
         this.ball = new Ball(new Vector2D(Constants.BALL_INITIAL_X, Constants.BALL_INITIAL_Y),
                 Constants.BALL_WIDTH,
                 Constants.BALL_HEIGHT,
                 new Vector2D(Constants.BALL_INITIAL_X_VEL, Constants.BALL_INITIAL_Y_VEL),
                 new Vector2D(-1, 0),
-                Color.RED);
+                Constants.BALL_COLOR);
 
         leftBarController = new PlayerController(leftBar, keyListener);
         rightBarController = new IAController(rightBar, ball);

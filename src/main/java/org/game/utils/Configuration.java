@@ -31,9 +31,7 @@ public class Configuration {
         return result;
     }
 
-    public int getIntegerProperty(String key) {
-        return Integer.parseInt(this.getStringProperty(key));
-    }
+    public int getIntegerProperty(String key) { return Integer.parseInt(this.getStringProperty(key)); }
 
     public boolean getBooleanProperty(String key) {
         return Boolean.parseBoolean(this.getStringProperty(key));

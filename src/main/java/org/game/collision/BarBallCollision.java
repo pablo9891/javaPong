@@ -12,168 +12,56 @@ import java.awt.Color;
 public abstract class BarBallCollision {
 
     Logger logger = LoggerFactory.getLogger(BarBallCollision.class);
-    private double getRandomNumber(double min, double max) {
-        return min + (Math.random() * max);
+
+    private double getNewAngleInRadians(Bar bar, Ball ball, double maxVelocity) {
+        double barMid = bar.getPosition().getY() + (Constants.BAR_HEIGHT / 2);
+        double ballMid = ball.getPosition().getY() + (Constants.BALL_HEIGHT / 2);
+
+        double pointOfCollision = barMid - ballMid;
+        double interval = pointOfCollision / (Constants.BAR_HEIGHT / 2);
+
+        return interval * maxVelocity;
     }
 
-    private double getNewDirection(boolean shouldReduce, double direction) {
-        double newDirection;
-
-        if(direction >= 2 || direction <= -2)
-            return direction;
-
-        if(shouldReduce) {
-            do {
-                newDirection = direction - getRandomNumber(0.1, 0.3);
-            } while(newDirection <= -2);
-        } else {
-            do {
-                newDirection = direction + getRandomNumber(0.1, 0.3);
-            } while(newDirection >= 2);
-        }
-
-        return Math.abs(newDirection);
-    }
-
-    private double getNewVelocity(boolean shouldReduce, double velocity) {
-        double newVelocity;
-
-        if(velocity >= Constants.MAX_BALL_VELOCITY || velocity <= Constants.MIN_BALL_VELOCITY)
-            return velocity;
-
-        if(shouldReduce) {
-            do {
-                newVelocity = velocity - getRandomNumber(1, 15);
-            } while(newVelocity <= Constants.MIN_BALL_VELOCITY);
-        } else {
-            do {
-                newVelocity = velocity + getRandomNumber(1, 15);
-            } while(newVelocity >= Constants.MAX_BALL_VELOCITY);
-        }
-
-        return newVelocity;
-    }
-
-    protected boolean isCenterBetweenCoords(double top, double bottom, double mid) {
-        return  top <= mid && mid <= bottom;
-    }
-
-    protected boolean isTopEdge(double barTop, double ballTop, double ballBottom) {
-        return ballTop <= barTop && barTop <= ballBottom;
-    }
-
-    protected void processBallCollisionWithTopAndBottom(Bar bar, Ball ball) {
-        double newXVel = getNewVelocity(false, ball.getVelocity().getX());
-        double newYVel = getNewVelocity(false, ball.getVelocity().getY());
-
-        if (ball.getDirection().getY() > 0) { // if ball goes up
-            if (bar.getDirection().getY() > 0) { // if bar goes up
-                ball.setDirection(new Vector2D(ball.getDirection().getX() * (-1), ball.getDirection().getY()));
-                ball.setVelocity(new Vector2D(newXVel, newYVel));
-            } else if (bar.getDirection().getY() < 0) { // if bar goes down
-                ball.setDirection(new Vector2D(ball.getDirection().getX() * (-1), ball.getDirection().getY() * (-1)));
-                ball.setVelocity(new Vector2D(newXVel, newYVel));
-            } else {
-                ball.setDirection(new Vector2D(ball.getDirection().getX() * (-1), ball.getDirection().getY()));
-            }
-        } else { // ball goes down
-            if (bar.getDirection().getY() > 0) { // if bar goes up
-                ball.setDirection(new Vector2D(ball.getDirection().getX() * (-1), ball.getDirection().getY() * (-1)));
-                ball.setVelocity(new Vector2D(newXVel, newYVel));
-            } else if (bar.getDirection().getY() < 0) { // if bar goes down
-                ball.setDirection(new Vector2D(ball.getDirection().getX() * (-1), ball.getDirection().getY()));
-                ball.setVelocity(new Vector2D(newXVel, newYVel));
-            } else {
-                ball.setDirection(new Vector2D(ball.getDirection().getX() * (-1), ball.getDirection().getY()));
-            }
-        }
-
-        if(Constants.IS_DEBUG_SET) {
-            logger.debug("BALL DIRECTION: {}", ball.getDirection());
-            logger.debug("BALL VELOCITY: {}", ball.getVelocity());
-        }
-    }
-
-    protected void middleBarCollision(Ball ball) {
-        double newXVel = getNewVelocity(true, ball.getVelocity().getX());
-        double newYVel = getNewVelocity(true, ball.getVelocity().getY());
-
-        ball.setDirection(new Vector2D((-1) * ball.getDirection().getX(), ball.getDirection().getY()));
-        ball.setVelocity(new Vector2D(newXVel, newYVel));
-
-        if(Constants.IS_DEBUG_SET) {
-            logger.debug("BALL DIRECTION: {}", ball.getDirection());
-            logger.debug("BALL VELOCITY: {}", ball.getVelocity());
-        }
-    }
-
-    public void processBarBallCollisionOnEdges(Bar bar, Ball ball, double delta) {
+    public void processBarBallCollisionOnEdges(Bar bar, Ball ball) {
         ball.setColor(Color.WHITE);
-        logger.debug("Collision with edge");
-        double ballTop = ball.getPosition().getY() + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
-        double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
-        double barTop = bar.getPosition().getY();
+        double angleInRadians = getNewAngleInRadians(bar, ball, Constants.MAX_ANGLE_WITH_EDGES);
+        double newYVel = Math.abs(Math.sin(angleInRadians) * Constants.MAX_BALL_VELOCITY);
+        double newXVel = Math.cos(angleInRadians) * Constants.MAX_BALL_VELOCITY;
 
-        double barMid = bar.getPosition().getX() + (Constants.BAR_WIDTH / 2);
-        double ballMid = ball.getPosition().getX() + (Constants.BALL_WIDTH / 2);
-
-        // Si la barra y la bola suben depende la reaccion de la bola
-        if(isTopEdge(barTop, ballTop, ballBottom)) {
-            if(barMid <= ballMid)
-                ball.setDirection(new Vector2D(ball.getDirection().getX() * (-1), -1));
-            else
-                ball.setDirection(new Vector2D(ball.getDirection().getX(), -1));
-        } else {
-            if (bar.getForwardVector().getX() > 0) {
-                if (barMid <= ballMid)
-                    ball.setDirection(new Vector2D(ball.getDirection().getX() * (-1), -1));
-                else
-                    ball.setDirection(new Vector2D(ball.getDirection().getX(), -1));
-            }
-        }
-    }
-
-    protected void processBarBallCollisionOnSurface(Bar bar, Ball ball, double delta) {
-        double barTop = bar.getPosition().getY();
-        double barBottom = bar.getPosition().getY() + Constants.BAR_HEIGHT;
-        double barTopMid = barTop + (Constants.BAR_HEIGHT / 3);
-        double barMidBottom = barTopMid + (Constants.BAR_HEIGHT / 3);
-
-        double ballTop = ball.getPosition().getY() + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
-        double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
-
-        double midBall = ballTop + (ballBottom - ballTop) / 2;
+        double oldSign = Math.signum(ball.getDirection().getX());
+        ball.setVelocity(new Vector2D(newXVel, newYVel));
+        ball.setDirection(new Vector2D( oldSign * (-1.0), ball.getDirection().getY()));
 
         if(Constants.IS_DEBUG_SET) {
             logger.debug("==========================");
-            logger.debug("BARTOPMID: {}",  barTopMid);
-            logger.debug("BARMIDBOTTOM: {}", barMidBottom);
-            logger.debug("MID BALL: {}", midBall);
-            logger.debug("IS BETWEEN TOP COORDS: {}", isCenterBetweenCoords(barTop, barTopMid, (ballBottom - ballTop) / 2));
-            logger.debug("IS BETWEEN MID COORDS: {}", isCenterBetweenCoords(barTopMid, barMidBottom, (ballBottom - ballTop) / 2));
-            logger.debug("IS BETWEEN BOTTOM COORDS: {}", isCenterBetweenCoords(barMidBottom, barBottom, (ballBottom - ballTop) / 2));
+            logger.debug("Collision with edge");
+            logger.debug("angleInRadians {}", angleInRadians);
+            logger.debug("newXVel {}", newXVel);
+            logger.debug("newYVel {}", newYVel);
             logger.debug("==========================");
         }
+    }
 
-        if(isCenterBetweenCoords(barTop, barTopMid, midBall)) {
-            if(Constants.IS_DEBUG_SET)
-                logger.debug("Collision with TOP");
-            ball.setColor(Color.CYAN);
-            processBallCollisionWithTopAndBottom(bar, ball);
-        }
-        else if(isCenterBetweenCoords(barTopMid, barMidBottom, midBall)) {
-            if(Constants.IS_DEBUG_SET)
-                logger.debug("Collision with MID");
-            ball.setColor(Color.ORANGE);
-            middleBarCollision(ball);
-        }
-        else if(isCenterBetweenCoords(barMidBottom, barBottom, midBall)) {
-            if(Constants.IS_DEBUG_SET)
-                logger.debug("Collision with BOTTOM");
-            ball.setColor(Color.WHITE);
-            processBallCollisionWithTopAndBottom(bar, ball);
+    protected void processBarBallCollisionOnSurface(Bar bar, Ball ball) {
+        double angleInRadians = getNewAngleInRadians(bar, ball, Constants.MAX_ANGLE_WITH_SURFACE);
+        double newYVel = Math.abs(Math.sin(angleInRadians) * Constants.MAX_BALL_VELOCITY);
+        double newXVel = Math.cos(angleInRadians) * Constants.MAX_BALL_VELOCITY;
+
+        double oldSign = Math.signum(ball.getDirection().getX());
+        ball.setVelocity(new Vector2D(newXVel, newYVel));
+        ball.setDirection(new Vector2D( oldSign * (-1.0), ball.getDirection().getY()));
+
+        if(Constants.IS_DEBUG_SET) {
+            logger.debug("==========================");
+            logger.debug("Collision with surfaces");
+            logger.debug("angleInRadians {}", angleInRadians);
+            logger.debug("newXVel {}", newXVel);
+            logger.debug("newYVel {}", newYVel);
+            logger.debug("==========================");
         }
     }
+
 
     public abstract boolean isBarBallCollisionOnSurface(Bar bar, Ball ball, double delta);
 

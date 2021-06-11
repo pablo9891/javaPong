@@ -1,17 +1,29 @@
 package org.game.utils;
 
+import java.awt.*;
+
 public class Constants {
 
     private Constants() { }
 
     public static final String CONFIG_FILE = "application.properties";
 
-    public static final String WINDOW_NAME = Configuration.getInstance().getStringProperty("window_name");
-    public static final int WINDOW_WIDTH = Configuration.getInstance().getIntegerProperty("window_width");
-    public static final int WINDOW_HEIGHT = Configuration.getInstance().getIntegerProperty("window_height");
+    public static final String WINDOW_NAME = Configuration.
+            getInstance().
+            getStringProperty("window_name");
+
+    public static final int WINDOW_WIDTH = Configuration.
+            getInstance().
+            getIntegerProperty("window_width");
+
+    public static final int WINDOW_HEIGHT = Configuration.
+            getInstance().
+            getIntegerProperty("window_height");
+
     public static final boolean IS_VISIBLE_WINDOW = Configuration.
             getInstance().
             getBooleanProperty("is_visible_window");
+
     public static final boolean IS_RESIZABLE_WINDOW = Configuration.
             getInstance().
             getBooleanProperty("is_resizable_window");
@@ -20,11 +32,21 @@ public class Constants {
             getInstance().
             getBooleanProperty("is_focusable_window");
 
-    public static final double BAR_WIDTH = Configuration.getInstance().getDoubleProperty("bar_width");
-    public static final double BAR_HEIGHT = Configuration.getInstance().getDoubleProperty("bar_height");
+    public static final double BAR_WIDTH = Configuration.
+            getInstance().
+            getDoubleProperty("bar_width");
 
-    public static final double BALL_WIDTH = Configuration.getInstance().getDoubleProperty("ball_width");
-    public static final double BALL_HEIGHT = Configuration.getInstance().getDoubleProperty("ball_height");
+    public static final double BAR_HEIGHT = Configuration.
+            getInstance().
+            getDoubleProperty("bar_height");
+
+    public static final double BALL_WIDTH = Configuration.
+            getInstance().
+            getDoubleProperty("ball_width");
+
+    public static final double BALL_HEIGHT = Configuration.
+            getInstance().
+            getDoubleProperty("ball_height");
 
     public static final double LEFT_BAR_INITIAL_X = Configuration.
             getInstance().
@@ -40,8 +62,13 @@ public class Constants {
             getInstance().
             getDoubleProperty("right_bar_initial_y");
 
-    public static final double BALL_INITIAL_X = Configuration.getInstance().getDoubleProperty("ball_initial_x");
-    public  static final double BALL_INITIAL_Y = Configuration.getInstance().getDoubleProperty("ball_initial_y");
+    public static final double BALL_INITIAL_X = Configuration.
+            getInstance().
+            getDoubleProperty("ball_initial_x");
+
+    public  static final double BALL_INITIAL_Y = Configuration.
+            getInstance().
+            getDoubleProperty("ball_initial_y");
 
     public static final double BAR_INITIAL_X_VEL = Configuration.
             getInstance().
@@ -64,18 +91,6 @@ public class Constants {
     public static final double TOP_BAR_MARGIN=Configuration.
             getInstance().
             getDoubleProperty("top_bar_margin");
-
-    public static final String BAR_COLOR=Configuration.
-            getInstance().
-            getStringProperty("bar_color");
-
-    public static final String BALL_COLOR=Configuration.
-            getInstance().
-            getStringProperty("ball_color");
-
-    public static final String BACKGROUND_COLOR=Configuration.
-            getInstance().
-            getStringProperty("background_color");
 
     public static final double MAX_BALL_VELOCITY = Configuration.
             getInstance().
@@ -103,21 +118,32 @@ public class Constants {
 
     public static final double FRAME_DELAY = 1000d / Constants.FPS;
 
-    public static final double MAX_VEL = Configuration.
-            getInstance().
-            getIntegerProperty("max_vel");
+    private static final int BALL_R_COLOR = Configuration.getInstance().getIntegerProperty("ball_r_color");
+    private static final int BALL_G_COLOR = Configuration.getInstance().getIntegerProperty("ball_g_color");
+    private static final int BALL_B_COLOR = Configuration.getInstance().getIntegerProperty("ball_b_color");
 
-    public static final double MID_VEL = Configuration.
-            getInstance().
-            getIntegerProperty("mid_vel");
+    public static final Color BALL_COLOR = new Color(BALL_R_COLOR, BALL_G_COLOR, BALL_B_COLOR);
 
-    public static final double MIN_VEL = Configuration.
-            getInstance().
-            getIntegerProperty("min_vel");
+    private static final int BAR_R_COLOR = Configuration.getInstance().getIntegerProperty("bar_r_color");
+    private static final int BAR_G_COLOR = Configuration.getInstance().getIntegerProperty("bar_g_color");
+    private static final int BAR_B_COLOR = Configuration.getInstance().getIntegerProperty("bar_b_color");
+
+    public static final Color BAR_COLOR = new Color(BAR_R_COLOR, BAR_G_COLOR, BAR_B_COLOR);
+
+    private static final int BACKGROUND_R_COLOR = Configuration.getInstance().getIntegerProperty("background_r_color");
+    private static final int BACKGROUND_G_COLOR = Configuration.getInstance().getIntegerProperty("background_g_color");
+    private static final int BACKGROUND_B_COLOR = Configuration.getInstance().getIntegerProperty("background_b_color");
+
+    public static final Color BACKGROUND_COLOR = new Color(BACKGROUND_R_COLOR, BACKGROUND_G_COLOR, BACKGROUND_B_COLOR);
+
     /**
      * Ball max angle in radians
      */
-   /* public static final double MAX_ANGLE = Configuration.
+    public static final double MAX_ANGLE_WITH_SURFACE = Configuration.
             getInstance().
-            getIntegerProperty("max_angle_in_radians");*/
+            getDoubleProperty("max_angle_in_radians");
+
+    public static final double MAX_ANGLE_WITH_EDGES = Configuration.
+            getInstance().
+            getDoubleProperty("max_angle_in_radians_with_edges");
 }

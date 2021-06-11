@@ -53,11 +53,11 @@ public class CollisionHelper {
             barBallCollision = new RightBarBallCollision();
 
         if(barBallCollision.isBarBallCollisionOnEdges(bar, ball, delta)) {
-            barBallCollision.processBarBallCollisionOnEdges(bar, ball, delta);
+            barBallCollision.processBarBallCollisionOnEdges(bar, ball);
             SoundManager.play(BOUNCE_SOUND_KEY, false);
         }
         if(barBallCollision.isBarBallCollisionOnSurface(bar, ball, delta)) {
-            barBallCollision.processBarBallCollisionOnSurface(bar, ball, delta);
+            barBallCollision.processBarBallCollisionOnSurface(bar, ball);
             SoundManager.play(BOUNCE_SOUND_KEY, false);
         }
     }
