@@ -146,4 +146,9 @@ public class Constants {
     public static final double MAX_ANGLE_WITH_EDGES = Configuration.
             getInstance().
             getDoubleProperty("max_angle_in_radians_with_edges");
+
+    public static final double MIN_ANGLE = Configuration.
+            getInstance().
+            getDoubleProperty("min_angle_in_radians");
+
 }

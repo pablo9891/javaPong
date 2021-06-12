@@ -9,11 +9,7 @@ import org.game.time.Time;
 import org.game.utils.Constants;
 
 import javax.swing.JFrame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Color;
+import java.awt.*;
 
 public class Window extends JFrame implements Runnable {
 
@@ -59,12 +55,24 @@ public class Window extends JFrame implements Runnable {
         this.windowName = Constants.WINDOW_NAME;
         this.windowWidth = Constants.WINDOW_WIDTH;
         this.windowHeight = Constants.WINDOW_HEIGHT;
+        Dimension windowDimension = new Dimension(this.windowWidth, this.windowHeight);
         this.setTitle(windowName);
-        this.setSize(new Dimension(this.windowWidth, this.windowHeight));
+        this.setSize(windowDimension);
         this.setResizable(Constants.IS_RESIZABLE_WINDOW);
         this.setFocusable(Constants.IS_FOCUSABLE_WINDOW);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(Constants.IS_VISIBLE_WINDOW);
+
+        Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((screenDimension.getWidth() - this.getWidth()) / 2);
+        int y = (int) ((screenDimension.getHeight() - this.getHeight()) / 2);
+
+        // calculate perfect center
+        int perf_x = (int) x - windowWidth/2;
+        int perf_y = (int) y - windowHeight/2;
+
+        this.setLocation(perf_x, perf_y);
+
         textManager = new TextManager();
         graphics = this.getGraphics();
         soundManager = new SoundManager();
