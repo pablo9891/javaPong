@@ -1,10 +1,13 @@
 package org.game.sound;
 
 import org.game.utils.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +15,15 @@ import java.util.Map;
 public class SoundManager {
     private static Map<String, Clip> soundsMap = new HashMap<>();
 
+    private Logger logger = LoggerFactory.getLogger(SoundManager.class);
+
     public SoundManager() { /* Empty constructor */ }
 
     public void addSound(String key, String file) {
         try {
-            InputStream audioStream = getClass().getClassLoader().getResourceAsStream(Constants.ROOT_SOUND_FOLDER + file);
+            if(Constants.IS_DEBUG_SET)
+                logger.debug("Reading sound file {}", Constants.ROOT_SOUND_FOLDER + file);
+            InputStream audioStream = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(Constants.ROOT_SOUND_FOLDER + file));
             if(audioStream != null) {
                 Clip clip = null;
                 clip = AudioSystem.getClip();

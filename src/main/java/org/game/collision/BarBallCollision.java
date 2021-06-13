@@ -64,8 +64,12 @@ public abstract class BarBallCollision {
                 logger.debug("Ball Y direction {}", (bar.getDirection().getY() > 0) ? "DOWN" : "UP");
                 logger.debug("Old Vector velocity {}", ball.getVelocity().toString());
                 logger.debug("Old Vector direction {}", ball.getDirection().toString());
-                ball.setVelocity(getNewVelocity(bar, ball));
-                ball.setDirection(getNewDirection(bar, ball));
+            }
+
+            ball.setVelocity(getNewVelocity(bar, ball));
+            ball.setDirection(getNewDirection(bar, ball));
+
+            if(Constants.IS_DEBUG_SET) {
                 logger.debug("New Vector velocity {}", ball.getVelocity().toString());
                 logger.debug("New Vector direction {}", ball.getDirection().toString());
                 logger.debug("Ball new X direction {}", (ball.getDirection().getX() < 0) ? "LEFT" : "RIGHT");
@@ -93,8 +97,12 @@ public abstract class BarBallCollision {
                 logger.debug("Ball Y direction {}", (bar.getDirection().getY() > 0) ? "DOWN" : "UP");
                 logger.debug("Old Vector velocity {}", ball.getVelocity().toString());
                 logger.debug("Old Vector direction {}", ball.getDirection().toString());
-                ball.setVelocity(getNewVelocity(bar, ball));
-                ball.setDirection(getNewDirection(bar, ball));
+            }
+
+            ball.setVelocity(getNewVelocity(bar, ball));
+            ball.setDirection(getNewDirection(bar, ball));
+
+            if(Constants.IS_DEBUG_SET) {
                 logger.debug("New Vector velocity {}", ball.getVelocity().toString());
                 logger.debug("New Vector direction {}", ball.getDirection().toString());
                 logger.debug("Ball new X direction {}", (ball.getDirection().getX() < 0) ? "LEFT" : "RIGHT");
