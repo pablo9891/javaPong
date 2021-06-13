@@ -75,7 +75,8 @@ public abstract class BarBallCollision {
                     ball.setColor(Color.BLUE);
                 else
                     ball.setColor(Color.YELLOW);
-            }        } else {
+            }
+        } else {
             double oldSign = Math.signum(ball.getDirection().getX());
             ball.setDirection(new Vector2D( oldSign * (-1.0), ball.getDirection().getY()));
         }

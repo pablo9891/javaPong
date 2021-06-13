@@ -64,14 +64,14 @@ public class Window extends JFrame implements Runnable {
         this.setVisible(Constants.IS_VISIBLE_WINDOW);
 
         Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (int) ((screenDimension.getWidth() - this.getWidth()) / 2);
-        int y = (int) ((screenDimension.getHeight() - this.getHeight()) / 2);
+        int xCenter = (int)(screenDimension.getWidth() / 2);
+        int yCenter = (int)(screenDimension.getHeight() / 2);
 
         // calculate perfect center
-        int perf_x = (int) x - windowWidth/2;
-        int perf_y = (int) y - windowHeight/2;
+        int windowXPosition = (int) xCenter - windowWidth/2;
+        int windowYPosition = (int) yCenter - windowHeight/2;
 
-        this.setLocation(perf_x, perf_y);
+        this.setLocation(windowXPosition, windowYPosition);
 
         textManager = new TextManager();
         graphics = this.getGraphics();
