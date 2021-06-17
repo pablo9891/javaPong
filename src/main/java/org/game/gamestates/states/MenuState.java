@@ -99,7 +99,9 @@ public class MenuState extends GameState {
     }
 
     private boolean isMouseOverlapText(Text txt) {
-        return mouseListener.getMouseX() >= txt.getX() && mouseListener.getMouseX() <= (txt.getX() + (txt.getWidth() / 2)) &&
-                mouseListener.getMouseY() >= txt.getY() - (txt.getHeight() / 2) && mouseListener.getMouseY() <= (txt.getY() + (txt.getHeight() / 2));
+        return mouseListener.getMouseX() >= txt.getX() &&
+                mouseListener.getMouseX() <= (txt.getX() + (txt.getWidth() / 2)) &&
+                mouseListener.getMouseY() >= txt.getY() - (txt.getHeight() / 2) &&
+                mouseListener.getMouseY() <= (txt.getY() + (txt.getHeight() / 2));
     }
 }

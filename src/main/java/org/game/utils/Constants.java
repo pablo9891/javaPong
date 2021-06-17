@@ -77,16 +77,22 @@ public class Constants {
             getInstance().
             getDoubleProperty("bar_initial_vel_y");
 
-    public static final double BALL_INITIAL_X_VEL = Configuration.
+    public static final double BALL_INITIAL_X_VEL_MIN = Configuration.
             getInstance().
-            getDoubleProperty("ball_initial_vel_x");
-    public static final double BALL_INITIAL_Y_VEL = Configuration.
+            getDoubleProperty("ball_initial_vel_x_min");
+    public static final double BALL_INITIAL_X_VEL_MAX = Configuration.
             getInstance().
-            getDoubleProperty("ball_initial_vel_y");
+            getDoubleProperty("ball_initial_vel_x_max");
 
-    public static double TOP_BAR;
+    public static final double BALL_INITIAL_Y_VEL_MIN = Configuration.
+            getInstance().
+            getDoubleProperty("ball_initial_vel_y_min");
+    public static final double BALL_INITIAL_Y_VEL_MAX = Configuration.
+            getInstance().
+            getDoubleProperty("ball_initial_vel_y_max");
 
-    public static double BOTTOM_BAR ;
+    public static double TOP_BAR = 0;
+    public static double BOTTOM_BAR = 0;
 
     public static final double TOP_BAR_MARGIN=Configuration.
             getInstance().
@@ -95,10 +101,6 @@ public class Constants {
     public static final double MAX_BALL_VELOCITY = Configuration.
             getInstance().
             getDoubleProperty("max_ball_vel");
-
-    public static final double MIN_BALL_VELOCITY = Configuration.
-            getInstance().
-            getDoubleProperty("min_ball_vel");
 
     public static final int MAX_POINTS = Configuration.
             getInstance().
@@ -177,7 +179,6 @@ public class Constants {
             getIntegerProperty("marker_b_color");
 
     public static final Color MARKER_COLOR = new Color(MARKER_R_COLOR, MARKER_G_COLOR, MARKER_B_COLOR);
-
 
     /**
      * Ball max angle in radians

@@ -13,30 +13,32 @@ public abstract class BarBallCollision {
 
     Logger logger = LoggerFactory.getLogger(BarBallCollision.class);
 
-    private double getNewAngleInRadians(Bar bar, Ball ball, double maxVelocity) {
+    private double getNewAngleInRadians(Bar bar, Ball ball, double maxAngle) {
         double barMid = bar.getPosition().getY() + (Constants.BAR_HEIGHT / 2);
         double ballMid = ball.getPosition().getY() + (Constants.BALL_HEIGHT / 2);
 
         double pointOfCollision = barMid - ballMid;
         double interval = pointOfCollision / (Constants.BAR_HEIGHT / 2);
 
-        return (interval * maxVelocity) + Constants.MIN_ANGLE;
+        if(Constants.IS_DEBUG_SET) {
+            logger.debug("Point of collision {}", pointOfCollision);
+            logger.debug("Interval {}", interval);
+        }
+
+        return (interval * maxAngle) + Constants.MIN_ANGLE;
     }
 
     private boolean isBarMoving(Bar bar) {
         return bar.getDirection().getY() > 0 || bar.getDirection().getY() < 0;
     }
 
-    private Vector2D getNewVelocity(Bar bar, Ball ball) {
-        double angleInRadians = getNewAngleInRadians(bar, ball, Constants.MAX_ANGLE_WITH_EDGES);
+    private Vector2D getNewVelocity(Bar bar, Ball ball, double maxAngle) {
+        double angleInRadians = getNewAngleInRadians(bar, ball, maxAngle);
         double newYVel = Math.abs(Math.sin(angleInRadians) * Constants.MAX_BALL_VELOCITY);
         double newXVel = Math.abs(Math.cos(angleInRadians) * Constants.MAX_BALL_VELOCITY);
 
-        if(Constants.IS_DEBUG_SET) {
+        if(Constants.IS_DEBUG_SET)
             logger.debug("angleInRadians {}", angleInRadians);
-            logger.debug("newXVel {}", newXVel);
-            logger.debug("newYVel {}", newYVel);
-        }
 
         return new Vector2D(newXVel, newYVel);
     }
@@ -56,54 +58,57 @@ public abstract class BarBallCollision {
         ball.setColor(Constants.BALL_COLOR);
         if(isBarMoving(bar)) {
             if(Constants.IS_DEBUG_SET) {
-                logger.debug(" ");
-                logger.debug("New collision with Edge");
-                logger.debug("Bar {}", bar.toString());
-                logger.debug("Ball {}", ball.toString());
+                logger.debug("New collision between ball and bar on the EDGE of the bar in MOVEMENT");
+                logger.debug("{}", bar);
+                logger.debug("{}", ball);
             }
-
-            ball.setVelocity(getNewVelocity(bar, ball));
+            ball.setVelocity(getNewVelocity(bar, ball, Constants.MAX_ANGLE_WITH_EDGES));
             ball.setDirection(getNewDirection(bar, ball));
-
-            if(Constants.IS_DEBUG_SET) {
-                logger.debug("New Ball {}", ball.toString());
-
-                if (ball.getDirection().getY() > 0)
-                    ball.setColor(Color.BLUE);
-                else
-                    ball.setColor(Color.YELLOW);
-            }
         } else {
+            if(Constants.IS_DEBUG_SET) {
+                logger.debug("New collision between ball and bar on the SURFACE of the bar");
+                logger.debug("{}", bar);
+                logger.debug("{}", ball);
+            }
             double oldSign = Math.signum(ball.getDirection().getX());
             ball.setDirection(new Vector2D( oldSign * (-1.0), ball.getDirection().getY()));
+        }
+        if(Constants.IS_DEBUG_SET) {
+            logger.debug("New Ball {}", ball);
+
+            if (ball.getDirection().getY() > 0)
+                ball.setColor(Color.BLUE);
+            else
+                ball.setColor(Color.YELLOW);
         }
     }
 
     protected void processBarBallCollisionOnSurface(Bar bar, Ball ball) {
         if(isBarMoving(bar)) {
             if(Constants.IS_DEBUG_SET) {
-                logger.debug(" ");
-                logger.debug("New collision with Surface");
+                logger.debug("New collision between ball and bar on the SURFACE of the bar in MOVEMENT");
                 logger.debug("Bar {}", (bar.getForwardVector().getX() > 0) ? "LEFT" : "RIGHT");
-                logger.debug("Bar {}", bar.toString());
-                logger.debug("Ball {}", ball.toString());
+                logger.debug("{}", bar);
+                logger.debug("{}", ball);
             }
-
-            ball.setVelocity(getNewVelocity(bar, ball));
+            ball.setVelocity(getNewVelocity(bar, ball, Constants.MAX_ANGLE_WITH_SURFACE));
             ball.setDirection(getNewDirection(bar, ball));
-
-            if(Constants.IS_DEBUG_SET) {
-                logger.debug("New Vector velocity {}", ball.getVelocity().toString());
-                logger.debug("New Ball {}", ball.toString());
-
-                if (ball.getDirection().getY() > 0)
-                    ball.setColor(Color.BLUE);
-                else
-                    ball.setColor(Color.YELLOW);
-            }
         } else {
+            if(Constants.IS_DEBUG_SET) {
+                logger.debug("New collision between ball and bar on the SURFACE of the bar");
+                logger.debug("{}", bar);
+                logger.debug("{}", ball);
+            }
             double oldSign = Math.signum(ball.getDirection().getX());
             ball.setDirection(new Vector2D( oldSign * (-1.0), ball.getDirection().getY()));
+        }
+        if(Constants.IS_DEBUG_SET) {
+            logger.debug("New Ball {}", ball);
+
+            if (ball.getDirection().getY() > 0)
+                ball.setColor(Color.BLUE);
+            else
+                ball.setColor(Color.YELLOW);
         }
     }
 

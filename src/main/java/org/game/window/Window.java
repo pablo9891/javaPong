@@ -9,7 +9,12 @@ import org.game.time.Time;
 import org.game.utils.Constants;
 
 import javax.swing.JFrame;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.Color;
+import java.awt.Image;
 
 public class Window extends JFrame implements Runnable {
 
@@ -68,8 +73,8 @@ public class Window extends JFrame implements Runnable {
         int yCenter = (int)(screenDimension.getHeight() / 2);
 
         // calculate perfect center
-        int windowXPosition = (int) xCenter - windowWidth/2;
-        int windowYPosition = (int) yCenter - windowHeight/2;
+        int windowXPosition = xCenter - windowWidth/2;
+        int windowYPosition = yCenter - windowHeight/2;
 
         this.setLocation(windowXPosition, windowYPosition);
 

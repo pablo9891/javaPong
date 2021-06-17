@@ -88,14 +88,22 @@ public class PlayIAState extends GameState {
         collisionHelper.processBarBallCollision(rightBar, ball, delta);
 
         if(collisionHelper.isPointForBar(leftBar, ball)) {
+            double initialVelX = getRandomVel(Constants.BALL_INITIAL_X_VEL_MIN, Constants.BALL_INITIAL_X_VEL_MAX);
+            double initialVelY = getRandomVel(Constants.BALL_INITIAL_Y_VEL_MIN, Constants.BALL_INITIAL_Y_VEL_MAX);
+
             leftMarker++;
             ball.setPosition(new Vector2D(Constants.BALL_INITIAL_X, Constants.BALL_INITIAL_Y));
-            ball.setDirection(new Vector2D(-1, 1));
+            ball.setVelocity(new Vector2D(initialVelX, initialVelY));
+            ball.setDirection(new Vector2D(1, getRandomDir()));
         }
         if(collisionHelper.isPointForBar(rightBar, ball)) {
+            double initialVelX = getRandomVel(Constants.BALL_INITIAL_X_VEL_MIN, Constants.BALL_INITIAL_X_VEL_MAX);
+            double initialVelY = getRandomVel(Constants.BALL_INITIAL_Y_VEL_MIN, Constants.BALL_INITIAL_Y_VEL_MAX);
+
             rightMarker++;
             ball.setPosition(new Vector2D(Constants.BALL_INITIAL_X, Constants.BALL_INITIAL_Y));
-            ball.setDirection(new Vector2D(1, -1));
+            ball.setVelocity(new Vector2D(initialVelX, initialVelY));
+            ball.setDirection(new Vector2D(-1, getRandomDir()));
         }
 
         leftMarkerText.setText(String.valueOf(leftMarker));
@@ -121,6 +129,9 @@ public class PlayIAState extends GameState {
 
     @Override
     public void loadGame() {
+        double initialVelX = getRandomVel(Constants.BALL_INITIAL_X_VEL_MIN, Constants.BALL_INITIAL_X_VEL_MAX);
+        double initialVelY = getRandomVel(Constants.BALL_INITIAL_Y_VEL_MIN, Constants.BALL_INITIAL_Y_VEL_MAX);
+
         this.leftBar = new Bar(new Vector2D(Constants.LEFT_BAR_INITIAL_X, Constants.LEFT_BAR_INITIAL_Y),
                 Constants.BAR_WIDTH,
                 Constants.BAR_HEIGHT,
@@ -136,7 +147,7 @@ public class PlayIAState extends GameState {
         this.ball = new Ball(new Vector2D(Constants.BALL_INITIAL_X, Constants.BALL_INITIAL_Y),
                 Constants.BALL_WIDTH,
                 Constants.BALL_HEIGHT,
-                new Vector2D(Constants.BALL_INITIAL_X_VEL, Constants.BALL_INITIAL_Y_VEL),
+                new Vector2D(initialVelX, initialVelY),
                 new Vector2D(-1, 0),
                 Constants.BALL_COLOR);
 
@@ -145,7 +156,7 @@ public class PlayIAState extends GameState {
 
         collisionHelper = new CollisionHelper();
 
-        ball.setDirection(new Vector2D(-1, -1));
+        ball.setDirection(new Vector2D(getRandomDir(), getRandomDir()));
     }
 
     private void loadInputConfiguration() {
