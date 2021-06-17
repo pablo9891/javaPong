@@ -130,11 +130,54 @@ public class Constants {
 
     public static final Color BAR_COLOR = new Color(BAR_R_COLOR, BAR_G_COLOR, BAR_B_COLOR);
 
-    private static final int BACKGROUND_R_COLOR = Configuration.getInstance().getIntegerProperty("background_r_color");
-    private static final int BACKGROUND_G_COLOR = Configuration.getInstance().getIntegerProperty("background_g_color");
-    private static final int BACKGROUND_B_COLOR = Configuration.getInstance().getIntegerProperty("background_b_color");
+    private static final int BACKGROUND_R_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("background_r_color");
+    private static final int BACKGROUND_G_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("background_g_color");
+    private static final int BACKGROUND_B_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("background_b_color");
 
     public static final Color BACKGROUND_COLOR = new Color(BACKGROUND_R_COLOR, BACKGROUND_G_COLOR, BACKGROUND_B_COLOR);
+
+    private static final int MENU_R_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("menu_r_color");
+    private static final int MENU_G_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("menu_g_color");
+    private static final int MENU_B_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("menu_b_color");
+
+    public static final Color MENU_COLOR = new Color(MENU_R_COLOR, MENU_G_COLOR, MENU_B_COLOR);
+
+    private static final int MENU_HOVER_R_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("menu_hover_r_color");
+    private static final int MENU_HOVER_G_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("menu_hover_g_color");
+    private static final int MENU_HOVER_B_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("menu_hover_b_color");
+
+    public static final Color MENU_HOVER_COLOR = new Color(MENU_HOVER_R_COLOR, MENU_HOVER_G_COLOR, MENU_HOVER_B_COLOR);
+
+    private static final int MARKER_R_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("marker_r_color");
+    private static final int MARKER_G_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("marker_g_color");
+    private static final int MARKER_B_COLOR = Configuration.
+            getInstance().
+            getIntegerProperty("marker_b_color");
+
+    public static final Color MARKER_COLOR = new Color(MARKER_R_COLOR, MARKER_G_COLOR, MARKER_B_COLOR);
+
 
     /**
      * Ball max angle in radians

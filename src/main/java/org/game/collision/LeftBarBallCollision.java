@@ -13,9 +13,12 @@ public class LeftBarBallCollision extends BarBallCollision {
         double barLeft = bar.getPosition().getX();
         double barRight = bar.getPosition().getX() + Constants.BAR_WIDTH;
 
-        double ballTop = ball.getPosition().getY() + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
-        double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
-        double ballLeft = ball.getPosition().getX() + ((ball.getVelocity().getX() * delta) * ball.getDirection().getX());
+        double ballTop = ball.getPosition().getY() +
+                ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
+        double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT +
+                ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
+        double ballLeft = ball.getPosition().getX() +
+                ((ball.getVelocity().getX() * delta) * ball.getDirection().getX());
 
         return ballLeft <= barRight &&
                 barLeft <= ballLeft &&
@@ -32,14 +35,18 @@ public class LeftBarBallCollision extends BarBallCollision {
         double barLeft = bar.getPosition().getX();
         double barRight = bar.getPosition().getX() + Constants.BAR_WIDTH;
 
-        double ballTop = ball.getPosition().getY() + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
-        double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT + ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
-        double ballRight = ball.getPosition().getX() + Constants.BALL_WIDTH + ((ball.getVelocity().getX() * delta) * ball.getDirection().getX());
+        double ballTop = ball.getPosition().getY() +
+                ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
+        double ballBottom = ball.getPosition().getY() + Constants.BALL_HEIGHT +
+                ((ball.getVelocity().getY() * delta) * ball.getDirection().getY());
+        double ballRight = ball.getPosition().getX() + Constants.BALL_WIDTH +
+                ((ball.getVelocity().getX() * delta) * ball.getDirection().getX());
         double ballLeft = ball.getPosition().getX() + (ball.getVelocity().getX() * delta);
 
         boolean isCollisionWithTopEdge = ballTop <= barTop && barTop <= ballBottom;
         boolean isCollisionWithBottomEdge = ballTop <= barBottom && barBottom <= ballBottom;
-        boolean isCollisionWithingBarRange = (ballLeft <= barRight && barLeft <= ballLeft) || (ballRight <= barRight && barLeft <= ballRight);
+        boolean isCollisionWithingBarRange = (ballLeft <= barRight && barLeft <= ballLeft) ||
+                (ballRight <= barRight && barLeft <= ballRight);
 
         return isCollisionWithTopEdge && isCollisionWithingBarRange || isCollisionWithBottomEdge && isCollisionWithingBarRange;
     }

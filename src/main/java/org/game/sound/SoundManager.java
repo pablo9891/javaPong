@@ -23,7 +23,9 @@ public class SoundManager {
         try {
             if(Constants.IS_DEBUG_SET)
                 logger.debug("Reading sound file {}", Constants.ROOT_SOUND_FOLDER + file);
-            InputStream audioStream = new BufferedInputStream(getClass().getClassLoader().getResourceAsStream(Constants.ROOT_SOUND_FOLDER + file));
+            InputStream audioStream = new BufferedInputStream(getClass().
+                    getClassLoader().
+                    getResourceAsStream(Constants.ROOT_SOUND_FOLDER + file));
             if(audioStream != null) {
                 Clip clip = null;
                 clip = AudioSystem.getClip();

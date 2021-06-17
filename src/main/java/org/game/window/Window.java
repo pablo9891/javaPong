@@ -80,11 +80,19 @@ public class Window extends JFrame implements Runnable {
 
         double separationBetweenText = 10;
         avgFPSText = new Text(String.valueOf(0.0), 20, 50, 18, Color.ORANGE);
-        frameStartText = new Text(String.valueOf(0.0), 20, (int)(avgFPSText.getY() + avgFPSText.getHeight() + separationBetweenText), 18, Color.ORANGE);
-        frameEndText = new Text(String.valueOf(0.0), 20, (int)(frameStartText.getY() + frameStartText.getHeight() + separationBetweenText), 18, Color.ORANGE);
-        elapsedTimeText = new Text(String.valueOf(0.0), 20, (int)(frameEndText.getY() + frameEndText.getHeight() + separationBetweenText), 18, Color.ORANGE);
-        deltaText = new Text(String.valueOf(0.0), 20, (int)(elapsedTimeText.getY() + elapsedTimeText.getHeight() + separationBetweenText), 18, Color.ORANGE);
-        delayText = new Text("Delay time: " + Math.round(Constants.FRAME_DELAY * 100.0) / 100.0, 20, (int)(deltaText.getY() + deltaText.getHeight() + separationBetweenText), 18, Color.ORANGE);
+        frameStartText = new Text(String.valueOf(0.0), 20, (int)(avgFPSText.getY() + avgFPSText.getHeight() +
+                separationBetweenText), 18, Color.ORANGE);
+        frameEndText = new Text(String.valueOf(0.0), 20, (int)(frameStartText.getY() + frameStartText.getHeight() +
+                separationBetweenText), 18, Color.ORANGE);
+        elapsedTimeText = new Text(String.valueOf(0.0), 20, (int)(frameEndText.getY() + frameEndText.getHeight() +
+                separationBetweenText), 18, Color.ORANGE);
+        deltaText = new Text(String.valueOf(0.0), 20, (int)(elapsedTimeText.getY() + elapsedTimeText.getHeight() +
+                separationBetweenText), 18, Color.ORANGE);
+        delayText = new Text("Delay time: " + Math.round(Constants.FRAME_DELAY * 100.0) / 100.0,
+                20,
+                (int)(deltaText.getY() + deltaText.getHeight() + separationBetweenText),
+                18,
+                Color.ORANGE);
     }
 
     public void update(double delta) {

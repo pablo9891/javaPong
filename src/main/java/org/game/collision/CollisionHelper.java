@@ -20,9 +20,11 @@ public class CollisionHelper {
     public void processCollisionBallWithTopAndBottom(Ball ball, double delta) {
         Vector2D newBallPosition;
         if(ball.getDirection().getY() < 0)
-            newBallPosition = new Vector2D(ball.getPosition().getX(), (ball.getPosition().getY() - (ball.getVelocity().getY() * delta)));
+            newBallPosition = new Vector2D(ball.getPosition().getX(),
+                    (ball.getPosition().getY() - (ball.getVelocity().getY() * delta)));
         else
-            newBallPosition = new Vector2D(ball.getPosition().getX(), (ball.getPosition().getY() + (ball.getVelocity().getY() * delta)));
+            newBallPosition = new Vector2D(ball.getPosition().getX(),
+                    (ball.getPosition().getY() + (ball.getVelocity().getY() * delta)));
 
         if(newBallPosition.getY() < (Constants.TOP_BAR + Constants.TOP_BAR_MARGIN)) {
             ball.setDirection(new Vector2D(ball.getDirection().getX(), 1));

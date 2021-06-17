@@ -9,7 +9,6 @@ import org.game.utils.Constants;
 import org.game.window.Window;
 
 import java.awt.Graphics2D;
-import java.awt.Color;
 
 public class MenuState extends GameState {
 
@@ -41,35 +40,51 @@ public class MenuState extends GameState {
         mouseListener = new MouseListenerCallback();
         window.addMouseListener(mouseListener);
         window.addMouseMotionListener(mouseListener);
-        pongText = new Text("Pong", (Constants.WINDOW_WIDTH / 2) - 100, (Constants.WINDOW_HEIGHT / 3), 100, Color.WHITE);
-        playOpponentText = new Text("Play against opponent", (Constants.WINDOW_WIDTH / 2) - 290, pongText.getY() + pongText.getHeight() + wordSeparation, 48, Color.WHITE);
-        playIAText = new Text("Play against IA", (Constants.WINDOW_WIDTH / 2) - 200, playOpponentText.getY() + playOpponentText.getHeight() + wordSeparation, 48, Color.WHITE);
-        exitText = new Text("Exit", (Constants.WINDOW_WIDTH / 2) - 40, playIAText.getY() + playIAText.getHeight() + wordSeparation, 48, Color.WHITE);
+        pongText = new Text("Pong",
+                (Constants.WINDOW_WIDTH / 2) - 100,
+                (Constants.WINDOW_HEIGHT / 3),
+                100,
+                Constants.MENU_COLOR);
+        playOpponentText = new Text("Play against opponent",
+                (Constants.WINDOW_WIDTH / 2) - 290,
+                pongText.getY() + pongText.getHeight() + wordSeparation,
+                48,
+                Constants.MENU_COLOR);
+        playIAText = new Text("Play against IA",
+                (Constants.WINDOW_WIDTH / 2) - 200,
+                playOpponentText.getY() + playOpponentText.getHeight() + wordSeparation,
+                48,
+                Constants.MENU_COLOR);
+        exitText = new Text("Exit",
+                (Constants.WINDOW_WIDTH / 2) - 40,
+                playIAText.getY() + playIAText.getHeight() + wordSeparation,
+                48,
+                Constants.MENU_COLOR);
     }
 
     @Override
     public void update(double delta) {
         if(isMouseOverlapText(playOpponentText))
-            playOpponentText.setColor(Color.GREEN);
+            playOpponentText.setColor(Constants.MENU_HOVER_COLOR);
         else
-            playOpponentText.setColor(Color.WHITE);
+            playOpponentText.setColor(Constants.MENU_COLOR);
 
         if(isMouseOverlapText(playIAText))
-            playIAText.setColor(Color.GREEN);
+            playIAText.setColor(Constants.MENU_HOVER_COLOR);
         else
-            playIAText.setColor(Color.WHITE);
+            playIAText.setColor(Constants.MENU_COLOR);
 
         if(isMouseOverlapText(exitText))
-            exitText.setColor(Color.GREEN);
+            exitText.setColor(Constants.MENU_HOVER_COLOR);
         else
-            exitText.setColor(Color.WHITE);
+            exitText.setColor(Constants.MENU_COLOR);
 
         menuMouseCallback.apply(null, mouseListener, delta);
     }
 
     @Override
     public void render(Graphics2D buffer) {
-        buffer.setColor(Color.BLACK);
+        buffer.setColor(Constants.BACKGROUND_COLOR);
         buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
 
         window.getText().draw(pongText, buffer);

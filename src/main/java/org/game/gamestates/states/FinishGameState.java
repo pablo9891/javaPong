@@ -9,7 +9,6 @@ import org.game.utils.Constants;
 import org.game.window.Window;
 
 import java.awt.Graphics2D;
-import java.awt.Color;
 
 public class FinishGameState extends GameState {
 
@@ -41,29 +40,40 @@ public class FinishGameState extends GameState {
         mouseListener = new MouseListenerCallback();
         window.addMouseListener(mouseListener);
         window.addMouseMotionListener(mouseListener);
-        winnerText = new Text(winnerName + " Won!", (Constants.WINDOW_WIDTH / 2) - 180, (Constants.WINDOW_HEIGHT / 3), 100, Color.WHITE);
-        retryText = new Text("Go back menu", (Constants.WINDOW_WIDTH / 2) - 170, winnerText.getY() + winnerText.getHeight() + wordSeparation, 48, Color.WHITE);
-        exitText = new Text("Exit", (Constants.WINDOW_WIDTH / 2) - 40, retryText.getY() + retryText.getHeight() + wordSeparation, 48, Color.WHITE);
+        winnerText = new Text(winnerName + " Won!",
+                (Constants.WINDOW_WIDTH / 2) - 180, (Constants.WINDOW_HEIGHT / 3),
+                100,
+                Constants.MENU_COLOR);
+        retryText = new Text("Go back menu",
+                (Constants.WINDOW_WIDTH / 2) - 170,
+                winnerText.getY() + winnerText.getHeight() + wordSeparation,
+                48,
+                Constants.MENU_COLOR);
+        exitText = new Text("Exit",
+                (Constants.WINDOW_WIDTH / 2) - 40,
+                retryText.getY() + retryText.getHeight() + wordSeparation,
+                48,
+                Constants.MENU_COLOR);
     }
 
     @Override
     public void update(double delta) {
         if(isMouseOverlapText(retryText))
-            retryText.setColor(Color.GREEN);
+            retryText.setColor(Constants.MENU_HOVER_COLOR);
         else
-            retryText.setColor(Color.WHITE);
+            retryText.setColor(Constants.MENU_COLOR);
 
         if(isMouseOverlapText(exitText))
-            exitText.setColor(Color.GREEN);
+            exitText.setColor(Constants.MENU_HOVER_COLOR);
         else
-            exitText.setColor(Color.WHITE);
+            exitText.setColor(Constants.MENU_COLOR);
 
         menuMouseCallback.apply(null, mouseListener, delta);
     }
 
     @Override
     public void render(Graphics2D buffer) {
-        buffer.setColor(Color.BLACK);
+        buffer.setColor(Constants.BACKGROUND_COLOR);
         buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
 
         window.getText().draw(winnerText, buffer);
@@ -77,8 +87,10 @@ public class FinishGameState extends GameState {
     }
 
     private boolean isMouseOverlapText(Text txt) {
-        return mouseListener.getMouseX() >= txt.getX() && mouseListener.getMouseX() <= (txt.getX() + (txt.getWidth() / 2)) &&
-                mouseListener.getMouseY() >= txt.getY() - (txt.getHeight() / 2) && mouseListener.getMouseY() <= (txt.getY() + (txt.getHeight() / 2));
+        return mouseListener.getMouseX() >= txt.getX() &&
+                mouseListener.getMouseX() <= (txt.getX() + (txt.getWidth() / 2)) &&
+                mouseListener.getMouseY() >= txt.getY() - (txt.getHeight() / 2) &&
+                mouseListener.getMouseY() <= (txt.getY() + (txt.getHeight() / 2));
     }
 }
 

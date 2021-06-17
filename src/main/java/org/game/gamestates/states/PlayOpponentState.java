@@ -14,7 +14,6 @@ import org.game.utils.Constants;
 import org.game.window.Window;
 
 import java.awt.Graphics2D;
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class PlayOpponentState extends GameState {
@@ -31,8 +30,13 @@ public class PlayOpponentState extends GameState {
     private Text leftMarkerText;
     private Text rightMarkerText;
 
-    KeyboardCallback<GameObject, KeyListenerCallback, Double> leftBarListenerCallback = (gameObject, listener, delta) ->
-    {
+    private static final String P1 = "P1";
+    private static final String P2 = "P2";
+
+    private static final String BOUNCE_WAV = "bounce_sound.wav";
+    private static final String BOUNCE_WAV_KEY = "bounce";
+
+    KeyboardCallback<GameObject, KeyListenerCallback, Double> leftBarListenerCallback = (gameObject, listener, delta) -> {
         if(keyListener.isKeyPressed(KeyEvent.VK_W)) {
             Vector2D newBarPosition = new Vector2D(gameObject.getPosition().getX(),
                     (gameObject.getPosition().getY() - (gameObject.getVelocity().getY() * delta)));
@@ -48,8 +52,7 @@ public class PlayOpponentState extends GameState {
         }
     };
 
-    KeyboardCallback<GameObject, KeyListenerCallback, Double> rightBarListenerCallback = (gameObject, listener, delta) ->
-    {
+    KeyboardCallback<GameObject, KeyListenerCallback, Double> rightBarListenerCallback = (gameObject, listener, delta) -> {
         if(keyListener.isKeyPressed(KeyEvent.VK_UP)) {
             Vector2D newBarPosition = new Vector2D(gameObject.getPosition().getX(),
                     (gameObject.getPosition().getY() - (gameObject.getVelocity().getY() * delta)));
@@ -78,17 +81,21 @@ public class PlayOpponentState extends GameState {
         Constants.BOTTOM_BAR = Constants.WINDOW_HEIGHT;
         leftMarker = 0;
         rightMarker = 0;
-        leftMarkerText = new Text(String.valueOf(leftMarker), 200, 100, 48, Color.WHITE);
-        rightMarkerText = new Text(String.valueOf(rightMarker), Constants.WINDOW_WIDTH - 200, 100, 48, Color.WHITE);
+        leftMarkerText = new Text(String.valueOf(leftMarker), 200, 100, 48, Constants.MARKER_COLOR);
+        rightMarkerText = new Text(String.valueOf(rightMarker),
+                Constants.WINDOW_WIDTH - 200,
+                100,
+                48,
+                Constants.MARKER_COLOR);
     }
 
     @Override
     public void update(double delta) {
-        if(rightMarker == Constants.MAX_POINTS)
-            window.setNewState(new FinishGameState(window, "P2"));
-
         if(leftMarker == Constants.MAX_POINTS)
-            window.setNewState(new FinishGameState(window, "P1"));
+            window.setNewState(new FinishGameState(window, P1));
+
+        if(rightMarker == Constants.MAX_POINTS)
+            window.setNewState(new FinishGameState(window, P2));
 
         leftBarController.update(delta, leftBarListenerCallback);
         rightBarController.update(delta, rightBarListenerCallback);
@@ -164,6 +171,6 @@ public class PlayOpponentState extends GameState {
     }
 
     private void loadSoundConfiguration() {
-        window.getSoundManager().addSound("bounce", "bounce_sound.wav");
+        window.getSoundManager().addSound(BOUNCE_WAV_KEY, BOUNCE_WAV);
     }
 }

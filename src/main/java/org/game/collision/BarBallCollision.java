@@ -53,27 +53,20 @@ public abstract class BarBallCollision {
     }
 
     public void processBarBallCollisionOnEdges(Bar bar, Ball ball) {
-        ball.setColor(Color.WHITE);
+        ball.setColor(Constants.BALL_COLOR);
         if(isBarMoving(bar)) {
             if(Constants.IS_DEBUG_SET) {
                 logger.debug(" ");
                 logger.debug("New collision with Edge");
-                logger.debug("Bar {}", (bar.getForwardVector().getX() > 0) ? "LEFT" : "RIGHT");
-                logger.debug("Bar direction {}", (bar.getDirection().getY() > 0) ? "DOWN" : "UP");
-                logger.debug("Ball X direction {}", (bar.getDirection().getX() < 0) ? "LEFT" : "RIGHT");
-                logger.debug("Ball Y direction {}", (bar.getDirection().getY() > 0) ? "DOWN" : "UP");
-                logger.debug("Old Vector velocity {}", ball.getVelocity().toString());
-                logger.debug("Old Vector direction {}", ball.getDirection().toString());
+                logger.debug("Bar {}", bar.toString());
+                logger.debug("Ball {}", ball.toString());
             }
 
             ball.setVelocity(getNewVelocity(bar, ball));
             ball.setDirection(getNewDirection(bar, ball));
 
             if(Constants.IS_DEBUG_SET) {
-                logger.debug("New Vector velocity {}", ball.getVelocity().toString());
-                logger.debug("New Vector direction {}", ball.getDirection().toString());
-                logger.debug("Ball new X direction {}", (ball.getDirection().getX() < 0) ? "LEFT" : "RIGHT");
-                logger.debug("Ball new Y direction {}", (ball.getDirection().getY() > 0) ? "DOWN" : "UP");
+                logger.debug("New Ball {}", ball.toString());
 
                 if (ball.getDirection().getY() > 0)
                     ball.setColor(Color.BLUE);
@@ -92,11 +85,8 @@ public abstract class BarBallCollision {
                 logger.debug(" ");
                 logger.debug("New collision with Surface");
                 logger.debug("Bar {}", (bar.getForwardVector().getX() > 0) ? "LEFT" : "RIGHT");
-                logger.debug("Bar direction {}", (bar.getDirection().getY() > 0) ? "DOWN" : "UP");
-                logger.debug("Ball X direction {}", (bar.getDirection().getX() < 0) ? "LEFT" : "RIGHT");
-                logger.debug("Ball Y direction {}", (bar.getDirection().getY() > 0) ? "DOWN" : "UP");
-                logger.debug("Old Vector velocity {}", ball.getVelocity().toString());
-                logger.debug("Old Vector direction {}", ball.getDirection().toString());
+                logger.debug("Bar {}", bar.toString());
+                logger.debug("Ball {}", ball.toString());
             }
 
             ball.setVelocity(getNewVelocity(bar, ball));
@@ -104,9 +94,7 @@ public abstract class BarBallCollision {
 
             if(Constants.IS_DEBUG_SET) {
                 logger.debug("New Vector velocity {}", ball.getVelocity().toString());
-                logger.debug("New Vector direction {}", ball.getDirection().toString());
-                logger.debug("Ball new X direction {}", (ball.getDirection().getX() < 0) ? "LEFT" : "RIGHT");
-                logger.debug("Ball new Y direction {}", (ball.getDirection().getY() > 0) ? "DOWN" : "UP");
+                logger.debug("New Ball {}", ball.toString());
 
                 if (ball.getDirection().getY() > 0)
                     ball.setColor(Color.BLUE);

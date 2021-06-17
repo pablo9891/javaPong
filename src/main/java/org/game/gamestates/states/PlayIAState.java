@@ -15,7 +15,7 @@ import org.game.utils.Constants;
 import org.game.window.Window;
 
 import java.awt.Graphics2D;
-import java.awt.Color;
+
 import java.awt.event.KeyEvent;
 
 public class PlayIAState extends GameState {
@@ -31,8 +31,10 @@ public class PlayIAState extends GameState {
     private Text leftMarkerText;
     private Text rightMarkerText;
 
-    KeyboardCallback<GameObject, KeyListenerCallback, Double> leftBarListenerCallback = (gameObject, listener, delta) ->
-    {
+    private static final String IA = "IA";
+    private static final String P1 = "P1";
+
+    KeyboardCallback<GameObject, KeyListenerCallback, Double> leftBarListenerCallback = (gameObject, listener, delta) -> {
         if(keyListener.isKeyPressed(KeyEvent.VK_W)) {
             Vector2D newBarPosition = new Vector2D(gameObject.getPosition().getX(),
                     (gameObject.getPosition().getY() - (gameObject.getVelocity().getY() * delta)));
@@ -62,17 +64,21 @@ public class PlayIAState extends GameState {
 
         leftMarker = 0;
         rightMarker = 0;
-        leftMarkerText = new Text(String.valueOf(leftMarker), 200, 100, 48, Color.WHITE);
-        rightMarkerText = new Text(String.valueOf(rightMarker), Constants.WINDOW_WIDTH - 200, 100, 48, Color.WHITE);
+        leftMarkerText = new Text(String.valueOf(leftMarker), 200, 100, 48, Constants.MARKER_COLOR);
+        rightMarkerText = new Text(String.valueOf(rightMarker),
+                Constants.WINDOW_WIDTH - 200,
+                100,
+                48,
+                Constants.MARKER_COLOR);
     }
 
     @Override
     public void update(double delta) {
         if(rightMarker == Constants.MAX_POINTS)
-            window.setNewState(new FinishGameState(window, "AI"));
+            window.setNewState(new FinishGameState(window, IA));
 
         if(leftMarker == Constants.MAX_POINTS)
-            window.setNewState(new FinishGameState(window, "P1"));
+            window.setNewState(new FinishGameState(window, P1));
 
         leftBarController.update(delta, leftBarListenerCallback);
         rightBarController.update(delta);

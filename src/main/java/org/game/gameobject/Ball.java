@@ -25,4 +25,19 @@ public class Ball extends GameObject {
         this.position = new Vector2D(newXPosition, newYPosition);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("Ball height: " + this.height + "\n");
+        s.append("Ball width: " + this.width + "\n");
+        s.append("Ball position: " + this.position.toString() +"\n");
+        s.append("Ball velocity: " + this.vel.toString() +"\n");
+        s.append("Ball direction: " + this.direction.toString() +"\n");
+        String dirX = (this.direction.getX() < 0 ) ? "LEFT" : "RIGHT";
+        String dirY = (this.direction.getY() > 0 ) ? "DOWN" : "UP";
+        s.append("Ball goes: " + dirY + " and " + dirX + "\n");
+        s.append("Ball forwardVector: " + this.forwardVector.toString());
+
+        return s.toString();
+    }
 }

@@ -42,4 +42,19 @@ public class Bar extends GameObject {
         if(newYPosition > (Constants.TOP_BAR + Constants.TOP_BAR_MARGIN))
             this.position = new Vector2D(newXPosition, newYPosition);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("Ball height: " + this.height +"\n");
+        s.append("Ball width: " + this.width +"\n");
+        s.append("Ball position: " + this.position.toString() +"\n");
+        s.append("Ball velocity: " + this.vel.toString() +"\n");
+        s.append("Ball direction: " + this.direction.toString() +"\n");
+        String dirY = (this.direction.getY() > 0 ) ? "DOWN" : "UP";
+        s.append("Ball goes: " + dirY +"\n");
+        s.append("Ball forwardVector: " + this.forwardVector.toString());
+
+        return s.toString();
+    }
 }
