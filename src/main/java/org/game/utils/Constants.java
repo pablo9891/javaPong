@@ -102,6 +102,10 @@ public class Constants {
             getInstance().
             getDoubleProperty("max_ball_vel");
 
+    public static final double MIN_BALL_VELOCITY = Configuration.
+            getInstance().
+            getDoubleProperty("min_ball_vel");
+
     public static final int MAX_POINTS = Configuration.
             getInstance().
             getIntegerProperty("max_points");

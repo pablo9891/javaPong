@@ -84,9 +84,6 @@ public class MenuState extends GameState {
 
     @Override
     public void render(Graphics2D buffer) {
-        buffer.setColor(Constants.BACKGROUND_COLOR);
-        buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
-
         window.getText().draw(pongText, buffer);
         window.getText().draw(playOpponentText, buffer);
         window.getText().draw(playIAText, buffer);

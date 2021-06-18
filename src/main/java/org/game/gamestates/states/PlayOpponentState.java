@@ -77,7 +77,7 @@ public class PlayOpponentState extends GameState {
         loadInputConfiguration();
         loadSoundConfiguration();
 
-        Constants.TOP_BAR = window.getInsets().top;
+        Constants.TOP_BAR = window.getFrame().getInsets().top;
         Constants.BOTTOM_BAR = Constants.WINDOW_HEIGHT;
 
         leftMarker = 0;
@@ -134,9 +134,6 @@ public class PlayOpponentState extends GameState {
 
     @Override
     public void render(Graphics2D buffer) {
-        buffer.setColor(Constants.BACKGROUND_COLOR);
-        buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
-
         window.getText().draw(leftMarkerText, buffer);
         window.getText().draw(rightMarkerText, buffer);
 

@@ -1,6 +1,7 @@
 package org.game.gameobject;
 
 import org.game.math.Vector2D;
+import org.game.utils.Constants;
 
 import java.awt.Graphics2D;
 import java.awt.Color;
@@ -27,7 +28,7 @@ public abstract class GameObject {
 
     public abstract void update(double delta);
 
-    public void draw(Graphics2D g) {
+    protected void drawGameObject(Graphics2D g) {
         g.setColor(color);
         g.fill(new Rectangle2D.Double(this.position.getX(), this.position.getY(), this.width, this.height));
     }

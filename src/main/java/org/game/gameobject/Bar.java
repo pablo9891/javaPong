@@ -3,7 +3,7 @@ package org.game.gameobject;
 import org.game.math.Vector2D;
 import org.game.utils.Constants;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class Bar extends GameObject {
 
@@ -25,6 +25,21 @@ public class Bar extends GameObject {
 
         this.position = new Vector2D(newXPosition, newYPosition);
         this.direction = new Vector2D(0, 0);
+    }
+
+    public void draw(Graphics2D g) {
+        if(Constants.IS_DEBUG_SET) {
+            g.setColor(Color.BLUE);
+            g.drawLine(0,
+                    (int)this.getPosition().getY(),
+                    Constants.WINDOW_WIDTH,
+                    (int)this.getPosition().getY());
+            g.drawLine(0,
+                    (int)(this.getPosition().getY() + Constants.BAR_HEIGHT),
+                    Constants.WINDOW_WIDTH,
+                    (int)(this.getPosition().getY() + Constants.BAR_HEIGHT));
+        }
+        this.drawGameObject(g);
     }
 
     public void down(double delta) {

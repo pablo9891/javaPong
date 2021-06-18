@@ -73,9 +73,6 @@ public class FinishGameState extends GameState {
 
     @Override
     public void render(Graphics2D buffer) {
-        buffer.setColor(Constants.BACKGROUND_COLOR);
-        buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
-
         window.getText().draw(winnerText, buffer);
         window.getText().draw(retryText, buffer);
         window.getText().draw(exitText, buffer);
