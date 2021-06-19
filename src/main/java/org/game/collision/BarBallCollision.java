@@ -34,8 +34,10 @@ public abstract class BarBallCollision {
 
     private Vector2D getNewVelocity(Bar bar, Ball ball, double maxAngle) {
         double angleInRadians = getNewAngleInRadians(bar, ball, maxAngle);
-        double newYVel = Math.abs(Math.sin(angleInRadians) * Constants.MAX_BALL_VELOCITY);
-        double newXVel = Math.abs(Math.cos(angleInRadians) * Constants.MAX_BALL_VELOCITY);
+        double newYVel = Math.abs((Math.sin(angleInRadians) * Constants.MAX_BALL_VELOCITY) +
+                Constants.MIN_BALL_VELOCITY);
+        double newXVel = Math.abs((Math.cos(angleInRadians) * Constants.MAX_BALL_VELOCITY) +
+                Constants.MIN_BALL_VELOCITY);
 
         if(Constants.IS_DEBUG_SET)
             logger.debug("angleInRadians {}", angleInRadians);

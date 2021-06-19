@@ -14,9 +14,9 @@ public class IAController {
     }
 
     public void update(Double delta) {
-        if (ball.getPosition().getY() <= bar.getPosition().getY())
+        if (ball.getPosition().getY() <= (bar.getPosition().getY() + 20))
             bar.up(delta);
-        if (ball.getPosition().getY() + Constants.BALL_HEIGHT >= bar.getPosition().getY() + Constants.BAR_HEIGHT)
+        if (ball.getPosition().getY() + Constants.BALL_HEIGHT >= ((bar.getPosition().getY() + Constants.BAR_HEIGHT) - 20))
             bar.down(delta);
     }
 }

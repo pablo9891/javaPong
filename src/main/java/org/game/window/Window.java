@@ -7,16 +7,14 @@ import org.game.gamestates.states.MenuState;
 import org.game.sound.SoundManager;
 import org.game.time.Time;
 import org.game.utils.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.JFrame;
-import java.awt.Graphics2D;
-import java.awt.Graphics;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.Color;
-import java.awt.Image;
+import java.awt.*;
+import java.awt.image.BufferStrategy;
 
-public class Window extends JFrame implements Runnable {
+public class Window extends Canvas implements Runnable {
 
     private Thread windowThread;
     private int windowWidth;
@@ -28,7 +26,6 @@ public class Window extends JFrame implements Runnable {
 
     private TextManager textManager;
     private SoundManager soundManager;
-    private Graphics graphics;
 
     private Text avgFPSText;
     private Text frameStartText;
@@ -45,11 +42,12 @@ public class Window extends JFrame implements Runnable {
 
     Time time = new Time();
 
+    private JFrame frame;
+    private BufferStrategy bufferStrategy;
+    
     public Window() {
         loadWindowConfiguration();
         windowThread = new Thread(this);
-        gameState = new MenuState(this);
-        gameState.loadResources();
     }
 
     private void loadWindowConfiguration() {
@@ -60,31 +58,38 @@ public class Window extends JFrame implements Runnable {
         this.windowName = Constants.WINDOW_NAME;
         this.windowWidth = Constants.WINDOW_WIDTH;
         this.windowHeight = Constants.WINDOW_HEIGHT;
-        Dimension windowDimension = new Dimension(this.windowWidth, this.windowHeight);
-        this.setTitle(windowName);
-        this.setSize(windowDimension);
-        this.setResizable(Constants.IS_RESIZABLE_WINDOW);
-        this.setFocusable(Constants.IS_FOCUSABLE_WINDOW);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(Constants.IS_VISIBLE_WINDOW);
 
-        Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int xCenter = (int)(screenDimension.getWidth() / 2);
-        int yCenter = (int)(screenDimension.getHeight() / 2);
+        int xCenter = (int)(Toolkit.getDefaultToolkit().
+                getScreenSize().
+                getWidth() / 2);
+        int yCenter = (int)(Toolkit.getDefaultToolkit().
+                getScreenSize().
+                getHeight() / 2);
 
         // calculate perfect center
         int windowXPosition = xCenter - windowWidth/2;
         int windowYPosition = yCenter - windowHeight/2;
 
-        this.setLocation(windowXPosition, windowYPosition);
+        frame = new JFrame();
+        frame.setTitle(windowName);
+        frame.setResizable(Constants.IS_RESIZABLE_WINDOW);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBackground(Constants.BACKGROUND_COLOR);
+        frame.setSize(new Dimension(this.windowWidth, this.windowHeight));
+        frame.setMinimumSize(new Dimension(this.windowWidth, this.windowHeight));
+        frame.setLocation(windowXPosition, windowYPosition);
+        frame.setFocusable(Constants.IS_FOCUSABLE_WINDOW);
+
+        this.setSize(new Dimension(this.windowWidth, this.windowHeight - frame.getInsets().top));
+        this.setMinimumSize(new Dimension(this.windowWidth, this.windowHeight));
+        this.setLocation(new Point(0, 0));
 
         textManager = new TextManager();
-        graphics = this.getGraphics();
         soundManager = new SoundManager();
         frames = 0;
 
         double separationBetweenText = 10;
-        avgFPSText = new Text(String.valueOf(0.0), 20, 50, 18, Color.ORANGE);
+        avgFPSText = new Text(String.valueOf(0.0), 20, 20, 18, Color.ORANGE);
         frameStartText = new Text(String.valueOf(0.0), 20, (int)(avgFPSText.getY() + avgFPSText.getHeight() +
                 separationBetweenText), 18, Color.ORANGE);
         frameEndText = new Text(String.valueOf(0.0), 20, (int)(frameStartText.getY() + frameStartText.getHeight() +
@@ -98,6 +103,13 @@ public class Window extends JFrame implements Runnable {
                 (int)(deltaText.getY() + deltaText.getHeight() + separationBetweenText),
                 18,
                 Color.ORANGE);
+
+        frame.add(this);
+        frame.setVisible(Constants.IS_VISIBLE_WINDOW);
+
+        createBufferStrategy(2);
+        bufferStrategy = getBufferStrategy();
+        setBackground(Constants.BACKGROUND_COLOR);
     }
 
     public void update(double delta) {
@@ -105,12 +117,11 @@ public class Window extends JFrame implements Runnable {
     }
 
     public void render() {
-        Image img = this.createImage(this.getWindowWidth(), this.getWindowHeight());
-        Graphics g = img.getGraphics();
-        Graphics2D doubleBuffer = (Graphics2D) g;
+        Graphics2D g = (Graphics2D)bufferStrategy.getDrawGraphics();
+        setBackground(Constants.BACKGROUND_COLOR);
+        g.fillRect(0, 0, this.getWindowWidth(), this.getWindowHeight());
 
-        doubleBuffer.setColor(getBackground());
-        gameState.render(doubleBuffer);
+        gameState.render(g);
 
         if(Constants.IS_DEBUG_SET) {
             avgFPSText.setText("Avg FPS: " + Math.round(avgFPS * 100.0) / 100.0);
@@ -119,15 +130,16 @@ public class Window extends JFrame implements Runnable {
             elapsedTimeText.setText("Elapsed time: " + Math.round(frameElapsedTime * 100.0) / 100.0);
             deltaText.setText("Delta: " + Math.round(delta * 10000.0) / 10000.0);
 
-            textManager.draw(avgFPSText, doubleBuffer);
-            textManager.draw(frameStartText, doubleBuffer);
-            textManager.draw(frameEndText, doubleBuffer);
-            textManager.draw(elapsedTimeText, doubleBuffer);
-            textManager.draw(deltaText, doubleBuffer);
-            textManager.draw(delayText, doubleBuffer);
+            textManager.draw(avgFPSText, g);
+            textManager.draw(frameStartText, g);
+            textManager.draw(frameEndText, g);
+            textManager.draw(elapsedTimeText, g);
+            textManager.draw(deltaText, g);
+            textManager.draw(delayText, g);
         }
 
-        graphics.drawImage(img, 0, 0, this);
+        g.dispose();
+        bufferStrategy.show();
         frames++;
     }
 
@@ -138,8 +150,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     private void clean() {
-        graphics.dispose();
-        this.dispose();
+        frame.dispose();
         windowThread.interrupt();
     }
 
@@ -147,9 +158,11 @@ public class Window extends JFrame implements Runnable {
     public void run() {
         this.isExecuting = true;
 
+        gameState = new MenuState(this);
+        gameState.loadResources();
         gameState.loadGame();
-
         time.start();
+
         while(this.isExecuting) {
             frameStartTime = time.getTime();
             delta = (frameStartTime - frameEndTime) / 1000d;
@@ -187,6 +200,8 @@ public class Window extends JFrame implements Runnable {
     public String getWindowName() {
         return windowName;
     }
+
+    public JFrame getFrame() { return frame; }
 
     public TextManager getText() {
         return this.textManager;

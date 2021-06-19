@@ -1,8 +1,9 @@
 package org.game.gameobject;
 
 import org.game.math.Vector2D;
+import org.game.utils.Constants;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class Ball extends GameObject {
 
@@ -23,6 +24,10 @@ public class Ball extends GameObject {
         }
 
         this.position = new Vector2D(newXPosition, newYPosition);
+    }
+
+    public void draw(Graphics2D g) {
+        this.drawGameObject(g);
     }
 
     @Override

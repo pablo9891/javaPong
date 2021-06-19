@@ -26,7 +26,7 @@ public class CollisionHelper {
             newBallPosition = new Vector2D(ball.getPosition().getX(),
                     (ball.getPosition().getY() + (ball.getVelocity().getY() * delta)));
 
-        if(newBallPosition.getY() < (Constants.TOP_BAR + Constants.TOP_BAR_MARGIN)) {
+        if(newBallPosition.getY() < Constants.TOP_BAR_MARGIN) {
             ball.setDirection(new Vector2D(ball.getDirection().getX(), 1));
             SoundManager.play(BOUNCE_SOUND_KEY, false);
         }

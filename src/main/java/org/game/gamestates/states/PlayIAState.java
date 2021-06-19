@@ -59,8 +59,8 @@ public class PlayIAState extends GameState {
         loadInputConfiguration();
         loadSoundConfiguration();
 
-        Constants.TOP_BAR = window.getInsets().top;
-        Constants.BOTTOM_BAR = Constants.WINDOW_HEIGHT;
+        //Constants.TOP_BAR = window.getFrame().getInsets().top;
+        Constants.BOTTOM_BAR = window.getHeight();
 
         leftMarker = 0;
         rightMarker = 0;
@@ -116,9 +116,6 @@ public class PlayIAState extends GameState {
 
     @Override
     public void render(Graphics2D buffer) {
-        buffer.setColor(Constants.BACKGROUND_COLOR);
-        buffer.fillRect(0, 0, window.getWindowWidth(), window.getWindowHeight());
-
         window.getText().draw(leftMarkerText, buffer);
         window.getText().draw(rightMarkerText, buffer);
 
