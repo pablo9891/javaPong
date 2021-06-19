@@ -1,6 +1,5 @@
 package org.game.window;
 
-import org.game.collision.BarBallCollision;
 import org.game.fonts.Text;
 import org.game.fonts.TextManager;
 import org.game.gamestates.GameState;
@@ -45,9 +44,7 @@ public class Window extends Canvas implements Runnable {
 
     private JFrame frame;
     private BufferStrategy bufferStrategy;
-
-    Logger logger = LoggerFactory.getLogger(Window.class);
-
+    
     public Window() {
         loadWindowConfiguration();
         windowThread = new Thread(this);
@@ -83,12 +80,16 @@ public class Window extends Canvas implements Runnable {
         frame.setLocation(windowXPosition, windowYPosition);
         frame.setFocusable(Constants.IS_FOCUSABLE_WINDOW);
 
+        this.setSize(new Dimension(this.windowWidth, this.windowHeight - frame.getInsets().top));
+        this.setMinimumSize(new Dimension(this.windowWidth, this.windowHeight));
+        this.setLocation(new Point(0, 0));
+
         textManager = new TextManager();
         soundManager = new SoundManager();
         frames = 0;
 
         double separationBetweenText = 10;
-        avgFPSText = new Text(String.valueOf(0.0), 20, 50, 18, Color.ORANGE);
+        avgFPSText = new Text(String.valueOf(0.0), 20, 20, 18, Color.ORANGE);
         frameStartText = new Text(String.valueOf(0.0), 20, (int)(avgFPSText.getY() + avgFPSText.getHeight() +
                 separationBetweenText), 18, Color.ORANGE);
         frameEndText = new Text(String.valueOf(0.0), 20, (int)(frameStartText.getY() + frameStartText.getHeight() +

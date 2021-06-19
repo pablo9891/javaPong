@@ -12,11 +12,15 @@ import org.game.input.controller.PlayerController;
 import org.game.math.Vector2D;
 import org.game.utils.Constants;
 import org.game.window.Window;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 public class PlayOpponentState extends GameState {
+
+    Logger logger = LoggerFactory.getLogger(PlayOpponentState.class);
 
     private Bar leftBar;
     private Bar rightBar;
@@ -40,7 +44,7 @@ public class PlayOpponentState extends GameState {
         if(keyListener.isKeyPressed(KeyEvent.VK_W)) {
             Vector2D newBarPosition = new Vector2D(gameObject.getPosition().getX(),
                     (gameObject.getPosition().getY() - (gameObject.getVelocity().getY() * delta)));
-            if(newBarPosition.getY() > (Constants.TOP_BAR + Constants.TOP_BAR_MARGIN))
+            if(newBarPosition.getY() > Constants.TOP_BAR_MARGIN)
                 gameObject.setDirection(new Vector2D(0, -1));
         }
 
@@ -77,8 +81,8 @@ public class PlayOpponentState extends GameState {
         loadInputConfiguration();
         loadSoundConfiguration();
 
-        Constants.TOP_BAR = window.getFrame().getInsets().top;
-        Constants.BOTTOM_BAR = Constants.WINDOW_HEIGHT;
+        //Constants.TOP_BAR = window.getFrame().getInsets().top;
+        Constants.BOTTOM_BAR = window.getHeight();
 
         leftMarker = 0;
         rightMarker = 0;

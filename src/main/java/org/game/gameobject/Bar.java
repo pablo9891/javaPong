@@ -15,13 +15,11 @@ public class Bar extends GameObject {
         double newXPosition = this.position.getX();
         double newYPosition = this.position.getY();
 
-        if(direction.getX() != 0) {
+        if(direction.getX() != 0)
             newXPosition = this.position.getX() + (vel.getX() * this.direction.getX()) * delta;
-        }
 
-        if(direction.getY() != 0) {
+        if(direction.getY() != 0)
             newYPosition = this.position.getY() + (vel.getY() * this.direction.getY()) * delta;
-        }
 
         this.position = new Vector2D(newXPosition, newYPosition);
         this.direction = new Vector2D(0, 0);

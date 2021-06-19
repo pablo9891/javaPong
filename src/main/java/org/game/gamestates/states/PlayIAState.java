@@ -59,8 +59,8 @@ public class PlayIAState extends GameState {
         loadInputConfiguration();
         loadSoundConfiguration();
 
-        Constants.TOP_BAR = window.getFrame().getInsets().top;
-        Constants.BOTTOM_BAR = Constants.WINDOW_HEIGHT;
+        //Constants.TOP_BAR = window.getFrame().getInsets().top;
+        Constants.BOTTOM_BAR = window.getHeight();
 
         leftMarker = 0;
         rightMarker = 0;
