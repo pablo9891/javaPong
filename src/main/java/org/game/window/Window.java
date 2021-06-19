@@ -139,6 +139,7 @@ public class Window extends Canvas implements Runnable {
         }
 
         g.dispose();
+        SoundManager.update();
         bufferStrategy.show();
         frames++;
     }

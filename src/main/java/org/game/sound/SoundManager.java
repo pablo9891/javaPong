@@ -9,16 +9,16 @@ import javax.sound.sampled.Clip;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class SoundManager {
     private static Map<String, Clip> soundsMap = new HashMap<>();
 
     private static Logger logger = LoggerFactory.getLogger(SoundManager.class);
 
-    public SoundManager() { /* Empty constructor */ }
+    private static Queue<SoundEvent> soundEventQueue = null;
+
+    public SoundManager() { soundEventQueue = new LinkedList<>(); }
 
     public void addSound(String key, String file) {
         String fileFullPath = Constants.ROOT_SOUND_FOLDER + file;
@@ -39,15 +39,27 @@ public class SoundManager {
         }
     }
 
-    public static void play(String key, boolean shouldLoop) {
-        if(!soundsMap.containsKey(key))
+    public static void update() {
+        while(!soundEventQueue.isEmpty()) {
+            SoundEvent e = soundEventQueue.remove();
+            play(e);
+        }
+    }
+
+    public static void addSoundEvent(SoundEvent e) {
+        soundEventQueue.add(e);
+    }
+
+
+    private static void play(SoundEvent event) {
+        if(!soundsMap.containsKey(event.getSoundKey()))
             return;
 
         try {
-            soundsMap.get(key).start();
-            soundsMap.get(key).setFramePosition(0);
-            if(shouldLoop)
-                soundsMap.get(key).loop(Clip.LOOP_CONTINUOUSLY);
+            soundsMap.get(event.getSoundKey()).start();
+            soundsMap.get(event.getSoundKey()).setFramePosition(0);
+            if(event.shouldLoop())
+                soundsMap.get(event.getSoundKey()).loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

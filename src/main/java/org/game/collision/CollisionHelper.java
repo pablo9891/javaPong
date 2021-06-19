@@ -4,6 +4,7 @@ import org.game.math.Vector2D;
 import org.game.gameobject.Ball;
 import org.game.gameobject.Bar;
 
+import org.game.sound.SoundEvent;
 import org.game.sound.SoundManager;
 import org.game.utils.Constants;
 
@@ -28,11 +29,11 @@ public class CollisionHelper {
 
         if(newBallPosition.getY() < Constants.TOP_BAR_MARGIN) {
             ball.setDirection(new Vector2D(ball.getDirection().getX(), 1));
-            SoundManager.play(BOUNCE_SOUND_KEY, false);
+            SoundManager.addSoundEvent(new SoundEvent(BOUNCE_SOUND_KEY, false));
         }
         if(newBallPosition.getY() + Constants.BALL_HEIGHT > (Constants.BOTTOM_BAR - Constants.TOP_BAR_MARGIN)) {
             ball.setDirection(new Vector2D(ball.getDirection().getX(), -1));
-            SoundManager.play(BOUNCE_SOUND_KEY, false);
+            SoundManager.addSoundEvent(new SoundEvent(BOUNCE_SOUND_KEY, false));
         }
     }
 
@@ -56,11 +57,11 @@ public class CollisionHelper {
 
         if(barBallCollision.isBarBallCollisionOnEdges(bar, ball, delta)) {
             barBallCollision.processBarBallCollisionOnEdges(bar, ball);
-            SoundManager.play(BOUNCE_SOUND_KEY, false);
+            SoundManager.addSoundEvent(new SoundEvent(BOUNCE_SOUND_KEY, false));
         }
         if(barBallCollision.isBarBallCollisionOnSurface(bar, ball, delta)) {
             barBallCollision.processBarBallCollisionOnSurface(bar, ball);
-            SoundManager.play(BOUNCE_SOUND_KEY, false);
+            SoundManager.addSoundEvent(new SoundEvent(BOUNCE_SOUND_KEY, false));
         }
     }
 }
